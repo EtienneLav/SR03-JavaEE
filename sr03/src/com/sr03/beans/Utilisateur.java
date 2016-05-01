@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class Utilisateur {
 
-    private Integer      id;
+    private long   id;
     private String    email;
     private String    motDePasse;
     private String    nom;
@@ -13,11 +13,26 @@ public class Utilisateur {
     private Timestamp dateInscription;
     private Boolean   status;
     private String    type;
+    
+	public Utilisateur(){}
+	
+	public Utilisateur(long id, String email, String motDePasse, String nom, String societe, String telephone, Timestamp dateInscription, Boolean status, String type) {
+		this.id = id;
+		this.email = email;
+		this.motDePasse = motDePasse;
+		this.nom = nom;
+		this.societe = societe;
+		this.telephone = telephone;
+		this.dateInscription = dateInscription;
+		this.status = status;
+		this.type = type;
+	}
 
-    public Integer getId() {
+
+    public long getId() {
         return id;
     }
-    public void setId( Integer id ) {
+    public void setId( long id ) {
         this.id = id;
     }
 
