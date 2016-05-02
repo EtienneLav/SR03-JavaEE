@@ -9,12 +9,14 @@
 <body>
 	<h1>Accueil Administrateur</h1>
 	
-	
 	Nom : ${ utilisateur.nom }<br>
 	Email : ${ utilisateur.email }<br>
 	Societe : ${ utilisateur.societe }<br>
 	Telephone : ${ utilisateur.telephone }<br>
-	Date d'inscription : ${ utilisateur.dateInscription }<br>
+	Date d'inscription : ${ utilisateur.dateInscription }<br><br>
+	<br>
+	<a href="/sr03/admin/utilisateurs">Voir la liste des utilisateurs</a>
+	<br>
 	<br><br>
 	<a href="/sr03/deconnexion">Deconnexion</a>
 </body>

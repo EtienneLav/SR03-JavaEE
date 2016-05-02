@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import com.sr03.beans.*;
 import com.sr03.DAO.*;
@@ -48,6 +49,43 @@ public class UtilisateurDAO extends DAO<Utilisateur> {
 	            e.printStackTrace();
 	    }
 	    return obj;
+	}
+
+	public ArrayList findStagiaires() {
+		ArrayList utilisateurs = new ArrayList();
+		Utilisateur util;
+		try {
+
+				
+	            ResultSet result = this.connect
+	                                   .createStatement(
+	                                            	ResultSet.TYPE_SCROLL_INSENSITIVE, 
+	                                                ResultSet.CONCUR_UPDATABLE
+	                                             ).executeQuery(
+	                                                "SELECT * FROM Utilisateur WHERE type = 'stagiaire' AND status = 1"
+	                                             );
+	            while(result.next()){
+					
+                	util = new Utilisateur(
+                            				result.getLong("id"),
+                                            result.getString("email"),
+                                            result.getString("motDePasse"),
+                                            result.getString("nom"),
+                                            result.getString("societe"),
+                                            result.getString("telephone"),
+                                            result.getTimestamp("dateInscription"),
+                                            result.getBoolean("status"),
+                                            result.getString("type")
+                                        );	
+	                utilisateurs.add(util);	
+					
+	            }
+            
+		    } catch (SQLException e) {
+		            e.printStackTrace();
+		    }
+		   return utilisateurs;
+
 	}
 	
 	public Utilisateur findByMailAndMdp(String email, String mdp) {
@@ -153,7 +191,7 @@ public class UtilisateurDAO extends DAO<Utilisateur> {
                              ResultSet.TYPE_SCROLL_INSENSITIVE, 
                              ResultSet.CONCUR_UPDATABLE
                         ).executeUpdate(
-                             "DELETE FROM langage WHERE lan_id = " + obj.getId()
+                             "DELETE FROM Utilisateur WHERE id = " + obj.getId()
                         );
 			
 	    } catch (SQLException e) {

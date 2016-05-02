@@ -26,14 +26,14 @@ public class Connexion extends HttpServlet {
 			request.setAttribute("connexionFaillure", connexionFaillure);
 			this.getServletContext().getRequestDispatcher( "/WEB-INF/index.jsp" ).forward( request, response );
 		} else {
-			request.setAttribute("utilisateur", util);
 
 			if (util.getType().equals("admin") && util.getStatus() == true) {
 		        HttpSession session = request.getSession();
 		        session.setAttribute("utilisateur_ID", util.getId());
 		        session.setAttribute("utilisateur_Type", util.getType());
 		        
-	            response.sendRedirect( request.getContextPath() + "/admin/landing" );
+				this.getServletContext().getRequestDispatcher( "/admin/landing.jsp" ).forward( request, response );
+	            //response.sendRedirect( request.getContextPath() + "/admin/landing" );
 
 			} else if (util.getType().equals("stagiaire") && util.getStatus() == true) {
 		        HttpSession session = request.getSession();

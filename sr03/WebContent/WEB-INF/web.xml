@@ -37,9 +37,17 @@
     <servlet-name>LandingAdmin</servlet-name>
     <servlet-class>com.sr03.admin.LandingAdmin</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>Utilisateurs</servlet-name>
+    <servlet-class>com.sr03.admin.Utilisateurs</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>LandingAdmin</servlet-name>
     <url-pattern>/admin/landing</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Utilisateurs</servlet-name>
+    <url-pattern>/admin/utilisateurs</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>LandingStagiaire</servlet-name>
