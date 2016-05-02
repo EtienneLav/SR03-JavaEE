@@ -50,7 +50,36 @@ public class UtilisateurDAO extends DAO<Utilisateur> {
 	    return obj;
 	}
 	
-	
+	public Utilisateur findByMailAndMdp(String email, String mdp) {
+		Utilisateur util = new Utilisateur();
+		try {
+            ResultSet result = this.connect
+                                   .createStatement(
+                                            	ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                                ResultSet.CONCUR_UPDATABLE
+                                             ).executeQuery(
+                                                "SELECT * FROM Utilisateur WHERE email = '" + email +"' AND motDePasse = '" + mdp +"'"
+                                             );
+            if(result.first())
+            	util = new Utilisateur(
+                        				result.getLong("id"),
+                                        result.getString("email"),
+                                        result.getString("motDePasse"),
+                                        result.getString("nom"),
+                                        result.getString("societe"),
+                                        result.getString("telephone"),
+                                        result.getTimestamp("dateInscription"),
+                                        result.getBoolean("status"),
+                                        result.getString("type")
+                                    );
+            
+		    } catch (SQLException e) {
+		            e.printStackTrace();
+		    }
+		   return util;
+
+	}
+		
 	
 	public Utilisateur find(long id) {
 		Utilisateur util = new Utilisateur();

@@ -8,6 +8,8 @@
 </head>
 <body>
 	<h1>Accueil Administrateur</h1>
+	
+	
 	Nom : ${ utilisateur.nom }<br>
 	Email : ${ utilisateur.email }<br>
 	Societe : ${ utilisateur.societe }<br>
