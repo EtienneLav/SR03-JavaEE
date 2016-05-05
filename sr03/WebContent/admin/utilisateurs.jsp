@@ -12,8 +12,62 @@
 </head>
 <body>
 	<h1>Gestion des utilisateurs</h1>
-	<a href="/sr03/admin/landing">retour</a><br>
+	<a href="/sr03/admin/landing">retour</a><br><br>
+		    <br><br>
+		    <br><br>
+		    	    
+	<%
+		boolean added = (boolean) request.getAttribute("added");
+	    if (added == true) {%>
+	    <h3>Utilisateur ajouté</h3>
+	<%    	
+	    } 		
+	%>
+	<h3>Ajout d'utilisateur :</h3>
+	<form action="/sr03/admin/utilisateurs" method="get">
+	    <div>
+	        <label for="mail">Addresse mail :</label>
+	        <input type="email" id="mail" name="mail"/>
+	    </div>
+	    <br><br>
+	    <div>
+	        <label for="mdp">Mot de passe :</label>
+	        <input type="text" id="mdp" name="mdp"/>
+	    </div>
+	   	<br><br>
+	    <div>
+	        <label for="nom">Nom :</label>
+	        <input type="text" id="nom" name="nom"/>
+	    </div>
+	    <br><br>
+	    <div>
+	        <label for="societe">Societe</label>
+	        <input type="text" id="societe" name="societe"/>
+	    </div>
+	   	<br><br>
+	    <div>
+	        <label for="telephone">Telephone</label>
+	        <input type="text" id="telephone" name="telephone"/>
+	    </div>
+	    <br><br>Type : <br>
+	    <input type="radio" name="type" value="admin" > Administrateur<br>
+		<input type="radio" name="type" value="stagiaire" checked> Stagiaire<br>
+	    <br><br>
+	    <div class="button">
+	        <button type="submit">Ajouter</button>
+	    </div>
+	</form>
 	<br>
+	<br><br>
+	<%
+		boolean deleted = (boolean) request.getAttribute("deleted");
+	    if (deleted == true) {%>
+	    <h3>Utilisateur ajouté</h3>
+	<%    	
+	    } 		
+	%>
+	<br><br><br>
+	<h3>Liste des utilisateurs</h3>
 	<table style="width:100%">
 	  <tr>
 	    <td>id</td>
@@ -25,6 +79,9 @@
 	    <td>dateInscription</td>
 	    <td>status</td>
 	    <td>type</td>
+		<td></td>
+		<td></td>
+		<td></td>
 	  </tr>
 	  		 <% 
 	     ArrayList stagiaires = (ArrayList)request.getAttribute("stagiaires");
@@ -41,7 +98,9 @@
 	    <td><% out.print(stagiaire.getDateInscription()); %></td>
 	    <td><% out.print(stagiaire.getStatus()); %></td>
 	    <td><% out.print(stagiaire.getType()); %></td>
-	    <td><a href="/sr03/admin/utilisateurs?delete=<% out.print(stagiaire.getId()); %>">Supprimer</a></td>
+	    <td><a href="#">Résultats</a></td> 
+	    <td><a href="#">Modifier</a></td> 
+	   	<td><a href="/sr03/admin/utilisateurs?delete=<% out.print(stagiaire.getId()); %>">Supprimer</a></td>
 	  </tr>
 	       <% } %>
 	</table>
