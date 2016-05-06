@@ -32,8 +32,8 @@ public class Connexion extends HttpServlet {
 		        session.setAttribute("utilisateur_ID", util.getId());
 		        session.setAttribute("utilisateur_Type", util.getType());
 		        
-				this.getServletContext().getRequestDispatcher( "/admin/landing.jsp" ).forward( request, response );
-	            //response.sendRedirect( request.getContextPath() + "/admin/landing" );
+				//this.getServletContext().getRequestDispatcher( "/admin/landing.jsp" ).forward( request, response );
+	            response.sendRedirect( request.getContextPath() + "/admin/landing" );
 
 			} else if (util.getType().equals("stagiaire") && util.getStatus() == true) {
 		        HttpSession session = request.getSession();

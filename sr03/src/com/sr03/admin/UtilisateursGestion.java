@@ -3,10 +3,15 @@ package com.sr03.admin;
 import com.sr03.DAO.DAOFactory;
 import com.sr03.DAO.UtilisateurDAO;
 import com.sr03.beans.*;
+import com.sr03.Email;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
+import java.util.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,12 +19,40 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class Utilisateurs extends HttpServlet {
+public class UtilisateursGestion extends HttpServlet {
 	public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
-        HttpSession session = request.getSession();
 		UtilisateurDAO UtilisateurDAO = (com.sr03.DAO.UtilisateurDAO) DAOFactory.getUtilisateurDAO();
+		
+		// Suppression d'un utilisateur si demandé dans la requête.
+		request = this.deleteUser(request);
+		
+        // Création d'un utilisateur si demandé dans la requête.
+		request = this.registerNewUser(request);
+        
+		// Récupération de la liste des utilisateurs.
+		request.setAttribute("stagiaires", UtilisateurDAO.findStagiaires());
+		
+		this.getServletContext().getRequestDispatcher( "/admin/utilisateurs.jsp" ).forward( request, response );
+	}
+	
+	public HttpServletRequest getUtilisateurGestion(HttpServletRequest request) {
+		UtilisateurDAO UtilisateurDAO = (com.sr03.DAO.UtilisateurDAO) DAOFactory.getUtilisateurDAO();
+		
+		// Suppression d'un utilisateur si demandé dans la requête.
+		request = this.deleteUser(request);
+		
+        // Création d'un utilisateur si demandé dans la requête.
+		request = this.registerNewUser(request);
+        
+		// Récupération de la liste des utilisateurs.
+		request.setAttribute("stagiaires", UtilisateurDAO.findStagiaires());
+		
+		return request;
+	}
+	
+	public HttpServletRequest deleteUser(HttpServletRequest request) {
 		boolean deleted = false;
-
+		UtilisateurDAO UtilisateurDAO = (com.sr03.DAO.UtilisateurDAO) DAOFactory.getUtilisateurDAO();
         if (request.getParameter("delete") != null) {
         	Utilisateur util = new Utilisateur();
         	util.setId(Long.valueOf(request.getParameter("delete")).longValue());
@@ -31,7 +64,12 @@ public class Utilisateurs extends HttpServlet {
         	deleted = false;
     		request.setAttribute("deleted", deleted);
         }
-        
+		return request;
+	}
+	
+	public HttpServletRequest registerNewUser(HttpServletRequest request) {
+		UtilisateurDAO UtilisateurDAO = (com.sr03.DAO.UtilisateurDAO) DAOFactory.getUtilisateurDAO();
+        HttpSession session = request.getSession();
         if (request.getParameter("mail") != null && request.getParameter("mdp") != null) {
         	Utilisateur util = new Utilisateur();
         	util.setEmail(request.getParameter("mail").toString());
@@ -58,14 +96,19 @@ public class Utilisateurs extends HttpServlet {
         		added = true;
         	}
     		request.setAttribute("added", added);
-
+    		
+    		Email email = new Email();
+    		String corps = "Merci pour votre inscription au site de sr03. Votre mot de passe est "+util.getMotDePasse();
+    		String subject = "Incription";
+    		
+    		Utilisateur user = UtilisateurDAO.find((long) session.getAttribute("utilisateur_ID"));
+    		if (! email.sendMessage(user.getEmail(), util.getEmail(), subject, corps)) {
+    			System.out.println("Sending mail error");
+    		}
         } else {
     		boolean added = false;
     		request.setAttribute("added", added);
         }
-        
-		ArrayList<Utilisateur> stagiaires = UtilisateurDAO.findStagiaires();
-		request.setAttribute("stagiaires", stagiaires);
-		this.getServletContext().getRequestDispatcher( "/admin/utilisateurs.jsp" ).forward( request, response );
+        return request;
 	}
 }
