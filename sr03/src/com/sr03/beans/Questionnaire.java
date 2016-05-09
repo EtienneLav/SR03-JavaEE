@@ -1,6 +1,5 @@
 package com.sr03.beans;
 
-import java.sql.Timestamp;
 
 public class Questionnaire {
 

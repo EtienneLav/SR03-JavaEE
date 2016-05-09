@@ -9,4 +9,7 @@ public class DAOFactory {
 		return new UtilisateurDAO();
 	}
 	
+	public static DAO<Reponse> getReponseDAO(){
+		return new ReponseDAO();
+	}
 }
