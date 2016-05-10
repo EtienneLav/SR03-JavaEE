@@ -10,32 +10,31 @@ import java.util.ArrayList;
 import com.sr03.beans.*;
 import com.sr03.DAO.*;
 
-public class ReponseDAO extends DAO<Reponse> {
+public class QuestionDAO extends DAO<Question> {
 
-	public Reponse create(Reponse obj) {
+	public Question create(Question obj) {
 		try {
-			System.out.println("ijergoij");
+			
 		      ResultSet result = this	.connect
                       .createStatement(
                       		ResultSet.TYPE_SCROLL_INSENSITIVE, 
                       		ResultSet.CONCUR_UPDATABLE
                       ).executeQuery(
-                      		"SELECT MAX( id ) AS id FROM Reponse"
+                      		"SELECT MAX( id ) AS id FROM Question"
                       );
 		      if(result.first()){
 		        long id = result.getLong("id") + 1;
 			
 				PreparedStatement prepare = this	.connect
                                                     .prepareStatement(
-                                                    	"INSERT INTO Reponse (id, intitule, status, correct, ordre, Question) VALUES(?, ?, ?, ?, ?, ?)"
+                                                    	"INSERT INTO Question (id, intitule, status, ordre, questionnaire) VALUES(?, ?, ?, ?, ?)"
                                                     );
 				
 				prepare.setLong(1, id);
 				prepare.setString(2, obj.getIntitule());
 				prepare.setBoolean(3, obj.getStatus());
-				prepare.setBoolean(4, obj.getCorrect());
-				prepare.setLong(5, obj.getOrdre());
-				prepare.setInt(6, obj.getQuestion());
+				prepare.setLong(4, obj.getOrdre());
+				prepare.setLong(5, obj.getQuestionnaire());
 
 				prepare.executeUpdate();
 				obj = this.find(id);	
@@ -46,24 +45,23 @@ public class ReponseDAO extends DAO<Reponse> {
 	    return obj;
 	}
 	
-	public Reponse find(long id) {
-		Reponse util = new Reponse();
+	public Question find(long id) {
+		Question util = new Question();
 		try {
             ResultSet result = this.connect
                                    .createStatement(
                                             	ResultSet.TYPE_SCROLL_INSENSITIVE, 
                                                 ResultSet.CONCUR_UPDATABLE
                                              ).executeQuery(
-                                                "SELECT * FROM Reponse WHERE id = " + id
+                                                "SELECT * FROM Question WHERE id = " + id
                                              );
             if(result.first())
-            	util = new Reponse(
+            	util = new Question(
                                         id, 
                                         result.getString("intitule"),
                                         result.getInt("ordre"),
                                         result.getBoolean("status"),
-                                        result.getBoolean("correct"),
-                                        result.getInt("question")
+                                        result.getInt("questionnaire")
                                     );
             
 		    } catch (SQLException e) {
@@ -72,47 +70,15 @@ public class ReponseDAO extends DAO<Reponse> {
 		   return util;
 
 	}
-
-	public ArrayList findFromQuestion(long question) {
-		ArrayList reponses = new ArrayList();
-		Reponse util = new Reponse();
-		try {
-            ResultSet result = this.connect
-                                   .createStatement(
-                                            	ResultSet.TYPE_SCROLL_INSENSITIVE, 
-                                                ResultSet.CONCUR_UPDATABLE
-                                             ).executeQuery(
-                                                "SELECT * FROM Reponse WHERE question = " + question
-                                             );
-            while(result.next()){
-            	util = new Reponse(
-                        result.getLong("id"), 
-                        result.getString("intitule"),
-                        result.getInt("ordre"),
-                        result.getBoolean("status"),
-                        result.getBoolean("correct"),
-                        result.getInt("question")
-                    );
-            	reponses.add(util);	
-            }
-            
-		    } catch (SQLException e) {
-		            e.printStackTrace();
-		    }
-		   return reponses;
-
-	}
 	
-	public Reponse update(Reponse obj) {
+	
+	public Question update(Question obj) {
 		try {
 				int status = 0;
-				int correct = 0;
 				if (obj.getStatus() == true) {
 					status = 1;
 				}
-				if (obj.getCorrect() == true) {
-					correct = 1;
-				}
+
 			
                 this .connect	
                      .createStatement(
@@ -122,7 +88,7 @@ public class ReponseDAO extends DAO<Reponse> {
                          	"UPDATE Reponse SET intitule = '" + obj.getIntitule() + "',"+
                                 	" ordre = '" + obj.getOrdre() + "',"+
                                 	" status = '" + status + "',"+
-                                	" correct = '" + correct + "'"+
+                                	" questionnaire = '" + obj.getQuestionnaire() + "'"+
                                 	" WHERE id = " + obj.getId()
                                 	);
 			
@@ -135,20 +101,57 @@ public class ReponseDAO extends DAO<Reponse> {
 	}
 
 
-	public void delete(Reponse obj) {
+	public void delete(Question obj) {
 		try {
-			
+				ReponseDAO reponsesDAO = (com.sr03.DAO.ReponseDAO) DAOFactory.getReponseDAO();
+	        	ArrayList reponses = reponsesDAO.findFromQuestion(obj.getId());
+	        	if (!reponses.isEmpty()) {
+		        	for (int i = 0; i < reponses.size(); i++) {
+		        		reponsesDAO.delete((Reponse)reponses.get(i));
+		        	}
+	        	}
+
                 this    .connect
                     	.createStatement(
                              ResultSet.TYPE_SCROLL_INSENSITIVE, 
                              ResultSet.CONCUR_UPDATABLE
                         ).executeUpdate(
-                             "DELETE FROM Reponse WHERE id = " + obj.getId()
-                        );
-			
+                             "DELETE FROM Question WHERE id = " + obj.getId()
+                        );	
 	    } catch (SQLException e) {
 	            e.printStackTrace();
 	    }
 	}
+	
+	
+	public ArrayList findFromQuestionnaire(long questionnaire) {
+		ArrayList questions = new ArrayList();
+		Question util = new Question();
+		try {
+            ResultSet result = this.connect
+                                   .createStatement(
+                                            	ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                                ResultSet.CONCUR_UPDATABLE
+                                             ).executeQuery(
+                                                "SELECT * FROM Question WHERE questionnaire = " + questionnaire
+                                             );
+            while(result.next()){
+            	util = new Question(            			
+                        result.getLong("id"), 
+                        result.getString("intitule"),
+                        result.getInt("ordre"),
+                        result.getBoolean("status"),
+                        result.getInt("questionnaire")
+                    );
+            	questions.add(util);	
+            }
+            
+		    } catch (SQLException e) {
+		            e.printStackTrace();
+		    }
+		   return questions;
+
+	}
+	
 		
 }

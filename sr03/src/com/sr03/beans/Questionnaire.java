@@ -27,11 +27,11 @@ public class Questionnaire {
         this.sujet = sujet;
     }
     public String getSujet() {
-        return sujet;
+        return this.sujet;
     }
     
     public Boolean getStatus() {
-        return status;
+        return this.status;
     }
     public void setStatus( Boolean status ) {
         this.status = status;

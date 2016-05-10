@@ -1,11 +1,9 @@
 package com.sr03.admin;
 
 import com.sr03.DAO.DAOFactory;
-import com.sr03.DAO.UtilisateurDAO;
 import com.sr03.admin.UtilisateursGestion;
 import com.sr03.beans.*;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

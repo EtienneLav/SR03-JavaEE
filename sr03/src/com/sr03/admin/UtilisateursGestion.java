@@ -1,6 +1,7 @@
 package com.sr03.admin;
 
 import com.sr03.DAO.DAOFactory;
+import com.sr03.DAO.ReponseDAO;
 import com.sr03.DAO.UtilisateurDAO;
 import com.sr03.beans.*;
 import com.sr03.Email;
@@ -22,7 +23,7 @@ import javax.servlet.http.HttpSession;
 public class UtilisateursGestion extends HttpServlet {
 	public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
 		UtilisateurDAO UtilisateurDAO = (com.sr03.DAO.UtilisateurDAO) DAOFactory.getUtilisateurDAO();
-		
+
 		// Suppression d'un utilisateur si demandé dans la requête.
 		request = this.deleteUser(request);
 		

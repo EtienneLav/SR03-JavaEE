@@ -8,14 +8,16 @@ public class Question {
     private String    intitule;
     private Boolean   status;
     private	int 	ordre;
+    private int questionnaire;
     
 	public Question(){}
 	
-	public Question(long id, String intitule, int ordre, Boolean status) {
+	public Question(long id, String intitule, int ordre, Boolean status, int questionnaire) {
 		this.id = id;
 		this.intitule = intitule;
 		this.ordre = ordre;
 		this.status = status;
+		this.questionnaire = questionnaire;
 	}
 
 
@@ -46,5 +48,12 @@ public class Question {
     }
     public void setStatus( Boolean status ) {
         this.status = status;
+    }
+    
+    public long getQuestionnaire() {
+        return questionnaire;
+    }
+    public void setQuestionnaire( int questionnaire ) {
+        this.questionnaire = questionnaire;
     }
 }

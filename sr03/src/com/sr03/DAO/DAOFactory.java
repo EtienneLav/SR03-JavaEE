@@ -12,4 +12,12 @@ public class DAOFactory {
 	public static DAO<Reponse> getReponseDAO(){
 		return new ReponseDAO();
 	}
+	
+	public static DAO<Question> getQuestionDAO(){
+		return new QuestionDAO();
+	}
+	
+	public static DAO<Questionnaire> getQuestionnaireDAO(){
+		return new QuestionnaireDAO();
+	}
 }

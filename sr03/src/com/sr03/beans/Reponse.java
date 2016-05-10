@@ -7,15 +7,17 @@ public class Reponse {
     private Boolean   status;
     private Boolean   correct;
     private	int 	ordre;
+    private int 	question;
     
 	public Reponse(){}
 	
-	public Reponse(long id, String intitule, int ordre, Boolean status,  Boolean correct) {
+	public Reponse(long id, String intitule, int ordre, Boolean status,  Boolean correct, int question) {
 		this.id = id;
 		this.intitule = intitule;
 		this.ordre = ordre;
 		this.status = status;
 		this.correct = correct;
+		this.question = question;
 	}
 
 
@@ -30,11 +32,11 @@ public class Reponse {
         this.intitule = intitule;
     }
     public String getIntitule() {
-        return intitule;
+        return this.intitule;
     }
 
     public long getOrdre() {
-        return ordre;
+        return this.ordre;
     }
     
     public void setOrdre(int ordre) {
@@ -42,7 +44,15 @@ public class Reponse {
     }
     
     public Boolean getStatus() {
-        return status;
+        return this.status;
+    }
+    
+    public void setQuestion(int question) {
+        this.question = question;
+    }
+    
+    public int getQuestion() {
+        return this.question;
     }
     
     public void setStatus( Boolean status ) {
