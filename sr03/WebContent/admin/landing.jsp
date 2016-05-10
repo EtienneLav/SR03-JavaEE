@@ -134,6 +134,89 @@
 				</div>
             </div>
         </div>
+
+
+
+		<div class="row">
+	        <div class="col-lg-12">
+	        	<h3>Gestion des questionnaires</h3>
+	        	<%
+					boolean addedQuestionnaire = (boolean) request.getAttribute("addedQuestionnaire");
+				    if (addedQuestionnaire == true) {%>
+				    <div class="alert alert-success" role="alert">Questionnaire ajouté</div>
+				<%    	
+				    } 		
+				%>
+				<%
+					boolean deletedQuestionnaire = (boolean) request.getAttribute("deleteQuestionnaire");
+				    if (deletedQuestionnaire == true) {%>
+				    <div class="alert alert-info" role="alert">Questionnaire supprimé</div>
+				<%    	
+				    } 		
+				%>
+ 					    	    	      	        
+				<div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true">
+				  <div class="panel panel-default">
+				    <div class="panel-heading" role="tab" id="headingOne2">
+				      <h4 class="panel-title">
+				        <a role="button" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne2" aria-expanded="false" aria-controls="collapseOne2">
+				          Liste des questionnaires
+				        </a>
+				      </h4>
+				    </div>
+				    <div id="collapseOne2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne2">
+				      <div class="panel-body">
+						<table class="table table-hover" style="width:100%">
+						  <tr>
+						    <th>id</th>
+						    <th>Sujet</th> 
+						    <th>status</th>
+							<th></th>
+							<th></th>
+						</tr>
+					  		 <% 
+					     ArrayList questionnaires = (ArrayList)request.getAttribute("questionnaires");
+					     for (int i = 0 ; i < questionnaires.size() ; i++) {
+					     	Questionnaire questionnaire = (Questionnaire) questionnaires.get(i);
+					     %>
+						  <tr>
+						    <th><% out.print(questionnaire.getId()); %></th>
+						    <td><% out.print(questionnaire.getSujet()); %></td> 
+						    <td><% out.print(questionnaire.getStatus()); %></td>
+						    <td><a href="#">Gérer</a></td> 
+						   	<td><a href="/sr03/admin/landing?deleteQuestionnaire=<% out.print(questionnaire.getId()); %>">Supprimer</a></td>
+						  </tr>
+						  <% } %>
+						</table>
+				      </div>
+				    </div>
+				  </div>
+				  <div class="panel panel-default">
+				    <div class="panel-heading" role="tab" id="headingTwo2">
+				      <h4 class="panel-title">
+				        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo2" aria-expanded="false" aria-controls="collapseTwo2">
+							Ajouter un Questionnaire 
+				        </a>
+				      </h4>
+				    </div>
+				    <div id="collapseTwo2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+				      <div class="panel-body">
+						<form action="/sr03/admin/landing" method="get">
+						    <div class="form-group">
+						        <label for="sujet">Sujet :</label>
+						        <input type="text" id="sujet" name="sujet" class="form-control"/>
+						    </div>
+							<button type="submit" class="btn btn-primary">Ajouter</button>
+						</form>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+            </div>
+        </div>
+
+
+
     </div>
 </section>
 
