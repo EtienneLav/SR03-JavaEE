@@ -14,7 +14,6 @@ public class ReponseDAO extends DAO<Reponse> {
 
 	public Reponse create(Reponse obj) {
 		try {
-			System.out.println("ijergoij");
 		      ResultSet result = this	.connect
                       .createStatement(
                       		ResultSet.TYPE_SCROLL_INSENSITIVE, 
@@ -149,6 +148,25 @@ public class ReponseDAO extends DAO<Reponse> {
 	    } catch (SQLException e) {
 	            e.printStackTrace();
 	    }
+	}
+	
+	public int countReponseFromQuestion(int idQuestion) {
+		int nb = 0;
+		try {
+            ResultSet result = this.connect
+                                   .createStatement(
+                                            	ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                                ResultSet.CONCUR_UPDATABLE
+                                             ).executeQuery(
+                                                "SELECT count(*) AS nb FROM Reponse WHERE question = " + idQuestion
+                                             );
+            if(result.first()) {
+            	nb = result.getInt("nb") + 1;
+            }
+		    } catch (SQLException e) {
+		            e.printStackTrace();
+		    }
+		return nb;
 	}
 		
 }
