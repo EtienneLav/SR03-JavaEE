@@ -89,6 +89,7 @@ public class QuestionnaireDAO extends DAO<Questionnaire> {
 			obj = this.find(obj.getId());
 	    } catch (SQLException e) {
 	            e.printStackTrace();
+	            return null;
 	    }
 	    
 	    return obj;

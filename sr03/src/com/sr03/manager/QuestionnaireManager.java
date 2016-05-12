@@ -24,7 +24,14 @@ public class QuestionnaireManager{
 		this.questionnaireDAO = (QuestionnaireDAO) DAOFactory.getQuestionnaireDAO();
 	}
 	
+	public HttpServletRequest getQuestionnaire(HttpServletRequest request) {
+		Questionnaire questionnaire = this.questionnaireDAO.find(Long.valueOf(request.getParameter("id")).longValue());
+		request.setAttribute("questionnaire", questionnaire);
+		return request;
+	}
+	
 	public HttpServletRequest getQuestionnaireList(HttpServletRequest request) {
+		
 		ArrayList questionnaires = this.questionnaireDAO.findAll();
 		request.setAttribute("questionnaires", questionnaires);
 		return request;
@@ -70,6 +77,22 @@ public class QuestionnaireManager{
 		
 		request.setAttribute("addedQuestionnaire", addedQuestionnaire);
 		return request;
-	}
+	}	
 	
+	public HttpServletRequest modifyQuestionnaire(HttpServletRequest request) {
+		int modifiedQuestionnaire = 0;
+		
+        if (request.getParameter("modifierIntitule") != null && request.getParameter("id") != null) {
+        	Questionnaire quest = this.questionnaireDAO.find(Long.valueOf(request.getParameter("id")).longValue());
+        	quest.setSujet(request.getParameter("modifierIntitule").toString());
+        	if (this.questionnaireDAO.update(quest) == null) {
+        		modifiedQuestionnaire = -1;
+        	} else {
+        		modifiedQuestionnaire = 1;
+        	}
+        }
+        
+		request.setAttribute("modifiedQuestionnaire", modifiedQuestionnaire);
+		return request;
+	}
 }
