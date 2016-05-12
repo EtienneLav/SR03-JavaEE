@@ -1,9 +1,10 @@
 <%@ include file="../WEB-INF/header.jsp" %>
 <section>
 	<div class="container">
-        
        <div class="row">
+            <h1 style="text-align: center;">Gestion Questionnaire n°${ questionnaire.id }</h1>
 	        <div class="col-lg-6">
+	        <br><br>
 				<div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
 				  <div class="panel panel-default">
 				    <div class="panel-heading" role="tab" id="headingOne1">
