@@ -85,7 +85,7 @@ public class QuestionDAO extends DAO<Question> {
                     	ResultSet.TYPE_SCROLL_INSENSITIVE, 
                         ResultSet.CONCUR_UPDATABLE
                      ).executeUpdate(
-                         	"UPDATE Reponse SET intitule = '" + obj.getIntitule() + "',"+
+                         	"UPDATE Question SET intitule = '" + obj.getIntitule() + "',"+
                                 	" ordre = '" + obj.getOrdre() + "',"+
                                 	" status = '" + status + "',"+
                                 	" questionnaire = '" + obj.getQuestionnaire() + "'"+
@@ -95,6 +95,7 @@ public class QuestionDAO extends DAO<Question> {
 			obj = this.find(obj.getId());
 	    } catch (SQLException e) {
 	            e.printStackTrace();
+	            return null;
 	    }
 	    
 	    return obj;
@@ -151,6 +152,25 @@ public class QuestionDAO extends DAO<Question> {
 		    }
 		   return questions;
 
+	}
+	
+	public int countQuestionFromQuestionnaire(int idQuestionnaire) {
+		int nb = 0;
+		try {
+            ResultSet result = this.connect
+                                   .createStatement(
+                                            	ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                                ResultSet.CONCUR_UPDATABLE
+                                             ).executeQuery(
+                                                "SELECT count(*) AS nb FROM Question WHERE questionnaire = " + idQuestionnaire
+                                             );
+            if(result.first()) {
+            	nb = result.getInt("nb") + 1;
+            }
+		    } catch (SQLException e) {
+		            e.printStackTrace();
+		    }
+		return nb;
 	}
 	
 		
