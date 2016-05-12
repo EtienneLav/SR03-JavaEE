@@ -183,7 +183,7 @@
 						    <th><% out.print(questionnaire.getId()); %></th>
 						    <td><% out.print(questionnaire.getSujet()); %></td> 
 						    <td><% out.print(questionnaire.getStatus()); %></td>
-						    <td><a href="#">Gérer</a></td> 
+						    <td><a href="/sr03/admin/gestionQuestionnaire?id=<% out.print(questionnaire.getId()); %>">Gérer</a></td> 
 						   	<td><a href="/sr03/admin/landing?deleteQuestionnaire=<% out.print(questionnaire.getId()); %>">Supprimer</a></td>
 						  </tr>
 						  <% } %>
