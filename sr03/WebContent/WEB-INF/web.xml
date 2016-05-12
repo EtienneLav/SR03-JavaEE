@@ -50,6 +50,14 @@
     <url-pattern>/admin/gestionQuestionnaire</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>GestionQuestion</servlet-name>
+    <servlet-class>com.sr03.admin.GestionQuestion</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GestionQuestion</servlet-name>
+    <url-pattern>/admin/gestionQuestion</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>LandingStagiaire</servlet-name>
     <servlet-class>com.sr03.stagiaire.LandingStagiaire</servlet-class>
   </servlet>
