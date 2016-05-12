@@ -10,9 +10,6 @@ import java.util.ArrayList;
 import com.sr03.beans.*;
 import com.sr03.DAO.*;
 
-import java.sql.Connection;
-
-import com.sr03.ConnectionMySQL;
 
 public class ParcoursDAO extends DAO<Parcours> {
 	
