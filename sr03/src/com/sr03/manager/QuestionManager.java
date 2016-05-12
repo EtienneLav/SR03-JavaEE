@@ -30,7 +30,7 @@ public class QuestionManager{
 	
 	public HttpServletRequest getQuestion(HttpServletRequest request) {
 		Question question = this.questionDAO.find(Long.valueOf(request.getParameter("id")).longValue());
-		request.setAttribute("id", question);
+		request.setAttribute("question", question);
 		return request;
 	}
 	
@@ -114,4 +114,21 @@ public class QuestionManager{
 		return request;
 	}
 	
+	
+	public HttpServletRequest modifyQuestion(HttpServletRequest request) {
+		int modifiedQuestion = 0;
+		
+        if (request.getParameter("modifierIntitule") != null && request.getParameter("id") != null) {
+        	Question quest = this.questionDAO.find(Long.valueOf(request.getParameter("id")).longValue());
+        	quest.setIntitule(request.getParameter("modifierIntitule").toString());
+        	if (this.questionDAO.update(quest) == null) {
+        		modifiedQuestion = -1;
+        	} else {
+        		modifiedQuestion = 1;
+        	}
+        }
+        
+		request.setAttribute("modifiedQuestion", modifiedQuestion);
+		return request;
+	}
 }
