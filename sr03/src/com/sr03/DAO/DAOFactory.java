@@ -20,4 +20,13 @@ public class DAOFactory {
 	public static DAO<Questionnaire> getQuestionnaireDAO(){
 		return new QuestionnaireDAO();
 	}
+	
+	public static DAO<Parcours> getParcoursDAO(){
+		return new ParcoursDAO();
+	}
+	
+	public static DAO<Reponse_parcours> getReponseparcoursDAO(){
+		return new Reponse_parcoursDAO();
+	}
+	
 }
