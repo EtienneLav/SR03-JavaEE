@@ -42,6 +42,14 @@
     <url-pattern>/admin/landing</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>GestionQuestionnaire</servlet-name>
+    <servlet-class>com.sr03.admin.GestionQuestionnaire</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GestionQuestionnaire</servlet-name>
+    <url-pattern>/admin/gestionQuestionnaire</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>LandingStagiaire</servlet-name>
     <servlet-class>com.sr03.stagiaire.LandingStagiaire</servlet-class>
   </servlet>
