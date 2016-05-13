@@ -4,7 +4,7 @@
 	<div class="container">
 	    <div class="row">
 	        <div class="col-lg-12">
-				<h1><center>Accueil Stagiaire</center></h1><br><br>
+				<h1><center> Bonjour ${ utilisateur.nom } ! </center></h1><br><br>
 				<div class="well">
 					<h4>Info compte :</h4>
 					Nom : ${ utilisateur.nom }<br>
@@ -12,7 +12,7 @@
 					Societe : ${ utilisateur.societe }<br>
 					Telephone : ${ utilisateur.telephone }<br>
 					Date d'inscription : ${ utilisateur.dateInscription }<br>
-					<br><br>
+					<br>
 					<a href="/sr03/deconnexion">Deconnexion</a>
 				</div>
             </div>
@@ -59,6 +59,96 @@
 	  		<button type="submit" class="btn btn-default">Valider</button>
 			</form>
 		</div>
+		
+
+		
+	
+		 <div class="row">
+	        <div class="col-lg-12">
+	        	<h3>Questionnaires parcourus</h3>					    	    
+			
+				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+				  <div class="panel panel-default">
+				    <div class="panel-heading" role="tab" id="headingOne">
+				      <h4 class="panel-title">
+				        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+				          Questionnaire(s)
+				        </a>
+				      </h4>
+				    </div>
+				    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+				      <div class="panel-body">
+						<table class="table table-hover" style="width:100%">
+						  <tr>
+						    <th style="text-align: center;">Parcours numéro</th>
+						    <th style="text-align: center;">Votre id</th> 
+						    <th style="text-align: center;">Sujet</th>
+						    <th style="text-align: center;">Score obtenu</th>
+						    <th style="text-align: center;">Durée</th>
+						    <th style="text-align: center;">Détails</th>
+						</tr>
+					  		 <% 
+					     ArrayList parcours = (ArrayList)request.getAttribute("parcours");
+					     for (int i = 0 ; i < parcours.size() ; i++) {
+					     	Parcours parcours_current = (Parcours) parcours.get(i);
+					     %>
+						  <tr>
+						    <td align="center"><% out.print(parcours_current.getId()); %></th>
+						    <td align="center"><% out.print(parcours_current.getUtilisateur()); %></td> 
+						    <td align="center"><% out.print(parcours_current.getQuestionnaire().getSujet()); %></td>
+						    <td align="center"><% out.print(parcours_current.getScore()); %></td>
+						    <td align="center"><% out.print(parcours_current.getDuree()); %></td>
+						    <td align="center"><a href="#"><button type="button" class="btn btn-info">Détails</button></a></td> 
+						  </tr>
+						  <% } %>
+						</table>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		
+		<div class="row">
+	        <div class="col-lg-12">
+	        	<h3>Questionnaires non parcourus</h3>					    	    
+			
+				<div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true">
+				  <div class="panel panel-default">
+				    <div class="panel-heading" role="tab" id="headingOne2">
+				      <h4 class="panel-title">
+				        <a role="button" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne2" aria-expanded="false" aria-controls="collapseOne2">
+				          Questionnaire(s)
+				        </a>
+				      </h4>
+				      </div>
+				      <div id="collapseOne2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne2">
+				      	<div class="panel-body">
+				      	<br>
+				      		<ul>
+				      		<%  
+				      		ArrayList questionnaires_libres = (ArrayList)request.getAttribute("questionnaires_libres");
+				      		if (questionnaires_libres.size() != 0)
+				      			for (int i = 0 ; i < questionnaires_libres.size() ; i++) {
+				    	 			Questionnaire questionnaire_current = (Questionnaire) questionnaires_libres.get(i);
+				    	  		%>
+					     		<li><a href="#"><% out.print(questionnaire_current.getSujet()); %></a></li>
+					     		<% } 
+				      		else
+				      			%>Aucun
+				      			
+				      		</ul>
+						</div>
+				    </div>
+				  </div>
+				</div>
+			</div>
+		</div>
+		
+		
     </div>
 </section>
 

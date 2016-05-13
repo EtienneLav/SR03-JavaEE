@@ -1,18 +1,19 @@
 package com.sr03.beans;
 
 import java.sql.Timestamp;
+import com.sr03.beans.*;
 
 public class Parcours {
 	
 	 private long   id;
 	 private int utilisateur;
-	 private int   questionnaire;
+	 private Questionnaire  questionnaire;
 	 private int score;
 	 private Timestamp duree;
 
 	public Parcours(){}
 	
-	public Parcours(long _id, int _utilisateur, int _questionnaire, int _score, Timestamp _duree){
+	public Parcours(long _id, int _utilisateur, Questionnaire _questionnaire, int _score, Timestamp _duree){
 		
 		this.id = _id;
 		this.utilisateur = _utilisateur;
@@ -37,11 +38,11 @@ public class Parcours {
     	this.utilisateur = _utilisateur;
     }
     
-    public int getQuestionnaire(){
+    public Questionnaire getQuestionnaire(){
     	return questionnaire;
     }
     
-    public void setQuestionnaire(int _questionnaire){
+    public void setQuestionnaire(Questionnaire _questionnaire){
     	this.questionnaire = _questionnaire;
     }
     

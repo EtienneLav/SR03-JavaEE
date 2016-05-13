@@ -33,7 +33,7 @@ public class ParcoursDAO extends DAO<Parcours> {
 				
 				prepare.setLong(1, id);
 				prepare.setLong(2, _obj.getUtilisateur());
-				prepare.setLong(3, _obj.getQuestionnaire());
+				((ArrayList) prepare).set(3, _obj.getQuestionnaire());
 				prepare.setLong(4, _obj.getScore());
 				prepare.setTimestamp(5, _obj.getDuree());
 
@@ -50,6 +50,7 @@ public class ParcoursDAO extends DAO<Parcours> {
 	public  Parcours find(long _id){
 				
 		Parcours parc = new Parcours();
+		Questionnaire questionnaire = new Questionnaire();
 		
 		try {
             ResultSet result = this.connect
@@ -57,16 +58,24 @@ public class ParcoursDAO extends DAO<Parcours> {
                                             	ResultSet.TYPE_SCROLL_INSENSITIVE, 
                                                 ResultSet.CONCUR_UPDATABLE
                                              ).executeQuery(
-                                                "SELECT * FROM Parcours WHERE id = " + _id
+                                                "SELECT * FROM Parcours, Questionnaire WHERE Questionnaire.id = Parcours.questionnaire AND Parcours.id = " + _id
                                              );
-            if(result.first())
+            if(result.first()){
+            	
+            	questionnaire = new Questionnaire(
+            			result.getInt("Questionnaire.id"),
+            			result.getString("sujet"),
+            			result.getBoolean("status")
+            		);
+            	
             	parc = new Parcours(
                                         _id, 
                                         result.getInt("utilisateur"),
-                                        result.getInt("questionnaire"),
+                                       	questionnaire,
                                         result.getInt("score"),
                                         result.getTimestamp("duree")
-                                    );
+                    );
+            	}
             
 		    } catch (SQLException e) {
 		            e.printStackTrace();
@@ -80,19 +89,27 @@ public class ParcoursDAO extends DAO<Parcours> {
 		 ArrayList ParcoursArray = new ArrayList();
 		 Parcours parc = new Parcours();
 		 
+		 Questionnaire questionnaire = new Questionnaire();
+		 
 		 try {
 	            ResultSet result = this.connect
 	                                   .createStatement(
 	                                            	ResultSet.TYPE_SCROLL_INSENSITIVE, 
 	                                                ResultSet.CONCUR_UPDATABLE
 	                                             ).executeQuery(
-	                                                "SELECT * FROM Parcours WHERE utilisateur = " + _utilisateur_id
+	                                                "SELECT * FROM Parcours, Questionnaire WHERE Parcours.questionnaire = Questionnaire.id AND utilisateur = " + _utilisateur_id
 	                                             );
 	            while(result.next()){
+	            	questionnaire = new Questionnaire(
+	            			result.getInt("Questionnaire.id"),
+	            			result.getString("sujet"),
+	            			result.getBoolean("status")
+	            		);
+	            	
 	            	parc = new Parcours(
 	            							result.getLong("id"),
 	            							_utilisateur_id, 
-	                                        result.getInt("questionnaire"),
+	                                        questionnaire,
 	                                        result.getInt("score"),
 	                                        result.getTimestamp("duree")
 	                                    );
@@ -111,19 +128,27 @@ public class ParcoursDAO extends DAO<Parcours> {
 		 ArrayList ParcoursArray = new ArrayList();
 		 Parcours parc = new Parcours();
 		 
+		 Questionnaire questionnaire = new Questionnaire();
+		 
 		 try {
 	            ResultSet result = this.connect
 	                                   .createStatement(
 	                                            	ResultSet.TYPE_SCROLL_INSENSITIVE, 
 	                                                ResultSet.CONCUR_UPDATABLE
 	                                             ).executeQuery(
-	                                                "SELECT * FROM Parcours WHERE utilisateur = " + _questionnaire_id
+	                                                "SELECT * FROM Parcours, Questionnaire WHERE Questionnaire.id = Parcours.questionnaire AND Questionnaire.id = " + _questionnaire_id
 	                                             );
 	            while(result.next()){
+	            	questionnaire = new Questionnaire(
+	            			_questionnaire_id,
+	            			result.getString("sujet"),
+	            			result.getBoolean("status")
+	            		);
+	            	
 	            	parc = new Parcours(
 	            							result.getLong("id"),
 	                                        result.getInt("utilisateur"),
-	                                        _questionnaire_id, 
+	                                        questionnaire, 
 	                                        result.getInt("score"),
 	                                        result.getTimestamp("duree")
 	                                    );
@@ -143,19 +168,27 @@ public class ParcoursDAO extends DAO<Parcours> {
 		 ArrayList ParcoursArray = new ArrayList();
 		 Parcours parc = new Parcours();
 		 
+		 Questionnaire questionnaire = new Questionnaire();
+		 
 		 try {
 	            ResultSet result = this.connect
 	                                   .createStatement(
 	                                            	ResultSet.TYPE_SCROLL_INSENSITIVE, 
 	                                                ResultSet.CONCUR_UPDATABLE
 	                                             ).executeQuery(
-	                                                "SELECT * FROM Parcours WHERE questionnaire = "+ _questionnaire_id + "ORDER BY score DESC LIMIT 10"
+	                                                "SELECT * FROM Parcours, Questionnaire WHERE Parcours.questionnaire = Questionnaire.id AND Parcours.questionnaire = "+ _questionnaire_id + "ORDER BY score DESC LIMIT 10"
 	                                             );
 	            while(result.next()){
+	            	questionnaire = new Questionnaire(
+	            			_questionnaire_id,
+	            			result.getString("sujet"),
+	            			result.getBoolean("status")
+	            		);
+	            	
 	            	parc = new Parcours(
 	            							result.getLong("id"),
 	                                        result.getInt("utilisateur"),
-	                                        _questionnaire_id,
+	                                        questionnaire,
 	                                        result.getInt("score"),
 	                                        result.getTimestamp("duree")
 	                                    );
@@ -174,6 +207,8 @@ public ArrayList findAll() {
 		ArrayList ParcoursArray = new ArrayList();
 		Parcours parc;
 		
+		Questionnaire questionnaire = new Questionnaire();
+		
 		try {
 
 				
@@ -182,14 +217,20 @@ public ArrayList findAll() {
 	                                            	ResultSet.TYPE_SCROLL_INSENSITIVE, 
 	                                                ResultSet.CONCUR_UPDATABLE
 	                                             ).executeQuery(
-	                                                "SELECT * FROM Parcours"
+	                                                "SELECT * FROM Parcours, Questionnaire WHERE Parcours.questionnaire = Questionnaire.id"
 	                                             );
 	            while(result.next()){
+	            	
+	            	questionnaire = new Questionnaire(
+	            			result.getInt("Questionnaire.id"),
+	            			result.getString("sujet"),
+	            			result.getBoolean("status")
+	            		);
 					
 	            	parc = new Parcours(
 	            			result.getLong("id"),
 							result.getInt("utilisateur"),
-                            result.getInt("questionnaire"),
+                            questionnaire,
                             result.getInt("score"),
                             result.getTimestamp("duree")
                                         );	
@@ -203,6 +244,43 @@ public ArrayList findAll() {
 		   return ParcoursArray;
 
 	}
+
+public ArrayList findQuestionnairesLibre() {
+	
+	ArrayList QuestionnaireArray = new ArrayList();
+	Questionnaire questionnaire = new Questionnaire();
+	
+	try {
+
+			
+            ResultSet result = this.connect
+                                   .createStatement(
+                                            	ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                                ResultSet.CONCUR_UPDATABLE
+                                             ).executeQuery(
+                                                "SELECT distinct * FROM Questionnaire T1 LEFT OUTER JOIN Parcours T2 ON T1.id= T2.questionnaire WHERE T2.questionnaire IS NULL"
+                                             );
+            while(result.next()){
+            	
+            	questionnaire = new Questionnaire(
+            			result.getInt("T1.id"),
+            			result.getString("T1.sujet"),
+            			result.getBoolean("T1.status")
+            		);
+				
+        
+            	QuestionnaireArray.add(questionnaire);	
+				
+            }
+        
+	    } catch (SQLException e) {
+	            e.printStackTrace();
+	    }
+	   return QuestionnaireArray;
+
+}
+
+
 
 	public  Parcours update(Parcours _obj){
 		return null;
