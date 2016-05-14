@@ -94,11 +94,11 @@
 					     %>
 						  <tr>
 						    <td align="center"><% out.print(parcours_current.getId()); %></th>
-						    <td align="center"><% out.print(parcours_current.getUtilisateur()); %></td> 
+						    <td align="center"><% out.print(parcours_current.getUtilisateur().getId()); %></td> 
 						    <td align="center"><% out.print(parcours_current.getQuestionnaire().getSujet()); %></td>
 						    <td align="center"><% out.print(parcours_current.getScore()); %></td>
 						    <td align="center"><% out.print(parcours_current.getDuree()); %></td>
-						    <td align="center"><a href="#"><button type="button" class="btn btn-info">Détails</button></a></td> 
+						    <td align="center"><a href="/sr03/stagiaire/landing/parcoursdetails?parcours_number=<% out.print(parcours_current.getId()); %>"><button type="button" class="btn btn-info">Détails</button></a></td> 
 						  </tr>
 						  <% } %>
 						</table>

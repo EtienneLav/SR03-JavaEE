@@ -65,6 +65,18 @@
     <servlet-name>LandingStagiaire</servlet-name>
     <url-pattern>/stagiaire/landing</url-pattern>
   </servlet-mapping>
+  
+  
+  <servlet>
+    <servlet-name>DetailsParcours</servlet-name>
+    <servlet-class>com.sr03.stagiaire.DetailsParcours</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DetailsParcours</servlet-name>
+    <url-pattern>/stagiaire/landing/parcoursdetails</url-pattern>
+  </servlet-mapping>
+  
+  
   <filter>
     <filter-name>RestrictionFilterAdmin</filter-name>
     <filter-class>com.sr03.filters.RestrictionFilterAdmin</filter-class>

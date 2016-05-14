@@ -20,4 +20,19 @@ public class ParcoursGestion extends HttpServlet {
 	
 		return request;
 	}
+	
+	public HttpServletRequest doGetUtilisateurs( HttpServletRequest request, HttpServletResponse response, int _questionnaire_id, int _utilisateur_id ) throws ServletException, IOException{
+		
+		ParcoursManager parcoursmanager = new ParcoursManager();
+		
+		request = parcoursmanager.getRanking(request, _questionnaire_id);
+		
+		request = parcoursmanager.getStatistics(request, _questionnaire_id, _utilisateur_id);
+		
+		
+	
+		return request;
+	}
+	
+	
 }

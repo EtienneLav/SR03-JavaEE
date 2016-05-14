@@ -6,14 +6,14 @@ import com.sr03.beans.*;
 public class Parcours {
 	
 	 private long   id;
-	 private int utilisateur;
+	 private Utilisateur utilisateur;
 	 private Questionnaire  questionnaire;
 	 private int score;
 	 private Timestamp duree;
 
 	public Parcours(){}
 	
-	public Parcours(long _id, int _utilisateur, Questionnaire _questionnaire, int _score, Timestamp _duree){
+	public Parcours(long _id, Utilisateur _utilisateur, Questionnaire _questionnaire, int _score, Timestamp _duree){
 		
 		this.id = _id;
 		this.utilisateur = _utilisateur;
@@ -30,11 +30,11 @@ public class Parcours {
         this.id = id;
     }
     
-    public int getUtilisateur(){
+    public Utilisateur getUtilisateur(){
     	return utilisateur;
     }
     
-    public void setUtilisateur(int _utilisateur){
+    public void setUtilisateur(Utilisateur _utilisateur){
     	this.utilisateur = _utilisateur;
     }
     
