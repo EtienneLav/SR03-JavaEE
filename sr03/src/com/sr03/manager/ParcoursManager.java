@@ -14,18 +14,26 @@ import javax.servlet.http.HttpSession;
 import com.sr03.DAO.DAOFactory;
 import com.sr03.DAO.ParcoursDAO;
 import com.sr03.DAO.QuestionnaireDAO;
+import com.sr03.DAO.QuestionDAO;
+import com.sr03.DAO.ReponseDAO;
 import com.sr03.DAO.UtilisateurDAO;
 import com.sr03.beans.Utilisateur;
 import com.sr03.beans.Parcours;
+import com.sr03.beans.Question;
+import com.sr03.beans.Reponse;
 
 
 public class ParcoursManager{
 	
 	private ParcoursDAO parcoursDAO;
+	private QuestionDAO questionDAO;
+	private ReponseDAO reponseDAO;
 	
 	
 	public ParcoursManager() {
 		this.parcoursDAO = (ParcoursDAO) DAOFactory.getParcoursDAO();
+		this.questionDAO = (QuestionDAO) DAOFactory.getQuestionDAO();
+		this.reponseDAO = (ReponseDAO) DAOFactory.getReponseDAO();
 		
 	}
 	
@@ -55,7 +63,7 @@ public class ParcoursManager{
 		return request;
 	}
 	
-public HttpServletRequest getStatistics(HttpServletRequest request, int _id, int _utilisateur_id) {
+	public HttpServletRequest getStatistics(HttpServletRequest request, int _id, int _utilisateur_id) {
 		
 
 		ArrayList FieldParcours = new ArrayList();
@@ -113,6 +121,41 @@ public HttpServletRequest getStatistics(HttpServletRequest request, int _id, int
 		request.setAttribute("utilisateur_position", position);
 		request.setAttribute("score_moyen", score_moyen/FieldParcours.size());
 		request.setAttribute("duree_moyenne", duree_moyenne);
+		
+		
+		return request;
+	}
+	
+	public HttpServletRequest getQuestionsFromAQuestionnaire(HttpServletRequest request, int _questionnaire_id, int _parcours_id) {
+		
+		//récuperer la liste des questions pour le questionnaire voulu
+		ArrayList QuestionsArray = new ArrayList();
+		QuestionsArray = this.questionDAO.findFromQuestionnaire(_questionnaire_id);
+	
+		// Pour chaque question récupérer la bonne réponse
+		ArrayList ReponseArray = new ArrayList();
+		
+		//Pour chaque question récupérer la réponse de l'utilisateur
+		ArrayList ReponseUserArray = new ArrayList();
+		
+		for (int j = 0 ; j < QuestionsArray.size() ; j++) {
+			
+	     	Question question_current = (Question) QuestionsArray.get(j);
+	     	Reponse reponse_question = new Reponse();
+	     	reponse_question = this.reponseDAO.findCorrectFromQuestion(question_current.getId());
+	     	ReponseArray.add(reponse_question);
+	     	
+	     	Reponse reponse_user_question = new Reponse();
+	     	reponse_user_question = this.reponseDAO.findUserReponse(question_current.getId(), _parcours_id);
+	     	ReponseUserArray.add(reponse_user_question);
+	     	}
+		
+		
+		
+		request.setAttribute("question", QuestionsArray);
+		request.setAttribute("correct_reponse", ReponseArray);
+		request.setAttribute("user_reponse", ReponseUserArray);
+		
 		
 		
 		return request;

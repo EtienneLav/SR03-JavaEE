@@ -16,6 +16,63 @@
             </div>
         </div>
         
+        
+        
+        
+        <div class="row">
+	        <div class="col-lg-12">
+	        	<h3>Détail de votre parcours</h3>					    	    
+			
+				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+				  <div class="panel panel-default">
+				    <div class="panel-heading" role="tab" id="headingOne">
+				      <h4 class="panel-title">
+				        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+				          Question par question
+				        </a>
+				      </h4>
+				    </div>
+				    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+				      <div class="panel-body">
+						<table class="table table-hover" style="width:100%">
+						  <tr>
+						  	<th style="text-align: center;">N° Question</th>
+						    <th style="text-align: center;">Question</th>
+						    <th style="text-align: center;">Votre réponse</th> 
+						    <th style="text-align: center;">Réponse exacte</th>
+
+						</tr>
+					  		 <% 
+					     ArrayList questionArray = (ArrayList)request.getAttribute("question");
+					  	 ArrayList reponseArray = (ArrayList)request.getAttribute("correct_reponse");
+					  	 ArrayList reponseUserArray = (ArrayList)request.getAttribute("user_reponse");
+					  	
+					  	 
+					     for (int j = 0 ; j < questionArray.size() ; j++) {
+					     	Question question_current = (Question) questionArray.get(j);
+					     	Reponse reponse_current_correct = (Reponse) reponseArray.get(j);
+					     	Reponse reponse_user_current = (Reponse) reponseUserArray.get(j);
+					     %>
+						  <tr>
+						  	<td align="center"><% out.print(question_current.getOrdre()); %></th>
+						    <td align="center"><% out.print(question_current.getIntitule()); %></th>
+						    <td align="center"><% out.print(reponse_user_current.getIntitule()); %></td>
+						    <td align="center"><% out.print(reponse_current_correct.getIntitule()); %></td>
+						     
+						  </tr>
+						  <% } %>
+						</table>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+			</div>
+		</div>
+        
+        
+        
+        
+        
         <div class="well">
         	<h4>Statistiques</h4>
         	Nombre de stagiaires ayant répondu à ce questionnaire : ${ nombre_stagiaire }<br>

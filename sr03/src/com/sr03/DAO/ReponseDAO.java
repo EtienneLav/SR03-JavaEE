@@ -168,5 +168,63 @@ public class ReponseDAO extends DAO<Reponse> {
 		    }
 		return nb;
 	}
+	
+	public Reponse findCorrectFromQuestion(long question) {
+		Reponse util = new Reponse();
+		try {
+            ResultSet result = this.connect
+                                   .createStatement(
+                                            	ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                                ResultSet.CONCUR_UPDATABLE
+                                             ).executeQuery(
+                                                "SELECT * FROM Reponse WHERE question = " + question + " AND correct = 1"
+                                             );
+            if(result.first())
+            	util = new Reponse(
+                        result.getLong("id"), 
+                        result.getString("intitule"),
+                        result.getInt("ordre"),
+                        result.getBoolean("status"),
+                        result.getBoolean("correct"),
+                        result.getInt("question")
+                    );
+            	
+            
+            
+		    } catch (SQLException e) {
+		            e.printStackTrace();
+		    }
+		   return util;
+
+	}
+	
+	public Reponse findUserReponse(long question, int parcours) {
+		Reponse util = new Reponse();
+		try {
+            ResultSet result = this.connect
+                                   .createStatement(
+                                            	ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                                ResultSet.CONCUR_UPDATABLE
+                                             ).executeQuery(
+                                                "SELECT * FROM Parcours_reponse, Reponse, Question WHERE Parcours_reponse.reponse = Reponse.id AND Reponse.question = Question.id AND Question.id = " + question + " AND Parcours_reponse.parcours = " + parcours
+                                             );
+            if(result.first())
+            	util = new Reponse(
+                        result.getLong("Reponse.id"), 
+                        result.getString("Reponse.intitule"),
+                        result.getInt("Reponse.ordre"),
+                        result.getBoolean("Reponse.status"),
+                        result.getBoolean("Reponse.correct"),
+                        result.getInt("Reponse.question")
+                    );
+            	
+            
+            
+		    } catch (SQLException e) {
+		            e.printStackTrace();
+		    }
+		   return util;
+
+	}
 		
 }
