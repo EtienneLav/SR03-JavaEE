@@ -52,11 +52,20 @@
 					     	Question question_current = (Question) questionArray.get(j);
 					     	Reponse reponse_current_correct = (Reponse) reponseArray.get(j);
 					     	Reponse reponse_user_current = (Reponse) reponseUserArray.get(j);
+					     	
+					     	String color_row;
+					     	if(reponse_user_current.getId() == reponse_current_correct.getId()){
+					     		color_row = "success";
+					     	}
+					     	
+					     	else {
+					     		color_row = "danger";
+					     	}
 					     %>
 						  <tr>
 						  	<td align="center"><% out.print(question_current.getOrdre()); %></th>
 						    <td align="center"><% out.print(question_current.getIntitule()); %></th>
-						    <td align="center"><% out.print(reponse_user_current.getIntitule()); %></td>
+						    <td class="<% out.print(color_row); %>" align="center"><% out.print(reponse_user_current.getIntitule()); %></td>
 						    <td align="center"><% out.print(reponse_current_correct.getIntitule()); %></td>
 						     
 						  </tr>
@@ -85,17 +94,17 @@
 	        <div class="col-lg-12">
 	        	<h3>Ranking</h3>					    	    
 			
-				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+				<div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true">
 				  <div class="panel panel-default">
-				    <div class="panel-heading" role="tab" id="headingOne">
+				    <div class="panel-heading" role="tab" id="headingOne2">
 				      <h4 class="panel-title">
-				        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+				        <a role="button" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne2" aria-expanded="false" aria-controls="collapseOne2">
 				          Classement
 				        </a>
 				      </h4>
 				    </div>
-				    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-				      <div class="panel-body">
+				    <div id="collapseOne2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne2">
+				      	<div class="panel-body">
 						<table class="table table-hover" style="width:100%">
 						  <tr>
 						    <th style="text-align: center;">Position</th>
