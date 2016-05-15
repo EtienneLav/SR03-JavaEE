@@ -1,6 +1,7 @@
 package com.sr03.beans;
 
-import java.sql.Timestamp;
+import java.sql.Time;
+import java.sql.Time;
 import com.sr03.beans.*;
 
 public class Parcours {
@@ -9,11 +10,11 @@ public class Parcours {
 	 private Utilisateur utilisateur;
 	 private Questionnaire  questionnaire;
 	 private int score;
-	 private Timestamp duree;
+	 private Time duree;
 
 	public Parcours(){}
 	
-	public Parcours(long _id, Utilisateur _utilisateur, Questionnaire _questionnaire, int _score, Timestamp _duree){
+	public Parcours(long _id, Utilisateur _utilisateur, Questionnaire _questionnaire, int _score, Time _duree){
 		
 		this.id = _id;
 		this.utilisateur = _utilisateur;
@@ -54,11 +55,11 @@ public class Parcours {
     	this.score = _score;
     }
     
-    public Timestamp getDuree(){
+    public Time getDuree(){
     	return duree;
     }
     
-    public void setDuree(Timestamp _duree){
+    public void setDuree(Time _duree){
     	this.duree = _duree;
     }
     

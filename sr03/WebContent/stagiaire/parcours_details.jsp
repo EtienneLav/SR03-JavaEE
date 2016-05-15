@@ -10,7 +10,7 @@
 					 Vous : ${ utilisateur.nom }<br>
 					 Questionnaire : ${parcours.questionnaire.sujet } <br>
 					 Votre score : ${parcours.score}<br>
-					 Votre temps : ${parcours.duree }<br>
+					 Votre temps : <% Parcours parcours = (Parcours) request.getAttribute("parcours"); out.print(parcours.getDuree()); %><br>
 					 
 				</div>
             </div>
@@ -68,7 +68,7 @@
 				</div>
 			</div>
 		</div>
-		
+		<a href="/sr03/stagiaire/landing"><button type="button" class="btn btn-warning">Retour</button></a>
     </div>
 </section>
 

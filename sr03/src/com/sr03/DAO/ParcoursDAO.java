@@ -4,7 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
+import java.sql.Time;
 import java.util.ArrayList;
 
 import com.sr03.beans.*;
@@ -35,7 +35,7 @@ public class ParcoursDAO extends DAO<Parcours> {
 				((ArrayList) prepare).set(3, _obj.getUtilisateur());
 				((ArrayList) prepare).set(3, _obj.getQuestionnaire());
 				prepare.setLong(4, _obj.getScore());
-				prepare.setTimestamp(5, _obj.getDuree());
+				prepare.setTime(5, _obj.getDuree());
 
 				prepare.executeUpdate();
 				_obj = this.find(id);	
@@ -77,7 +77,7 @@ public class ParcoursDAO extends DAO<Parcours> {
                                         utilisateur,
                                        	questionnaire,
                                         result.getInt("score"),
-                                        result.getTimestamp("duree")
+                                        result.getTime("duree")
                     );
             	}
             
@@ -129,7 +129,7 @@ public class ParcoursDAO extends DAO<Parcours> {
 	            							utilisateur, 
 	                                        questionnaire,
 	                                        result.getInt("score"),
-	                                        result.getTimestamp("duree")
+	                                        result.getTime("duree")
 	                                    );
 	            	ParcoursArray.add(parc);
 	             }
@@ -181,7 +181,7 @@ public class ParcoursDAO extends DAO<Parcours> {
 	                                        utilisateur,
 	                                        questionnaire, 
 	                                        result.getInt("score"),
-	                                        result.getTimestamp("duree")
+	                                        result.getTime("duree")
 	                                    );
 	            	ParcoursArray.add(parc);
 	             }
@@ -226,7 +226,7 @@ public class ParcoursDAO extends DAO<Parcours> {
 	                                        utilisateur,
 	                                        questionnaire,
 	                                        result.getInt("score"),
-	                                        result.getTimestamp("duree")
+	                                        result.getTime("duree")
 	                                    );
 	            	ParcoursArray.add(parc);
 	             }
@@ -273,7 +273,7 @@ public ArrayList findAll() {
 							utilisateur,
                             questionnaire,
                             result.getInt("score"),
-                            result.getTimestamp("duree")
+                            result.getTime("duree")
                                         );	
 	            	ParcoursArray.add(parc);	
 					
@@ -365,7 +365,7 @@ public ArrayList findUtilisateursByQuestions(int _questionnaire_id) {
 						utilisateur,
                         questionnaire,
                         result.getInt("Parcours.score"),
-                        result.getTimestamp("Parcours.duree")
+                        result.getTime("Parcours.duree")
             			);
             	
             	
