@@ -21,14 +21,14 @@ public class Reponse_parcoursDAO extends DAO<Reponse_parcours> {
                     		ResultSet.TYPE_SCROLL_INSENSITIVE, 
                     		ResultSet.CONCUR_UPDATABLE
                     ).executeQuery(
-                    		"SELECT MAX( id ) AS id FROM Reponse_parcours"
+                    		"SELECT MAX( id ) AS id FROM Parcours_reponse"
                     );
 		      if(result.first()){
 		        long id = result.getLong("id") + 1;
 			
 				PreparedStatement prepare = this	.connect
                                                   .prepareStatement(
-                                                  	"INSERT INTO Reponse_parcours (id, parcours, reponse) VALUES(?, ?, ?)"
+                                                  	"INSERT INTO Parcours_reponse (id, parcours, reponse) VALUES(?, ?, ?)"
                                                   );
 				
 				prepare.setLong(1, id);
@@ -55,7 +55,7 @@ public class Reponse_parcoursDAO extends DAO<Reponse_parcours> {
                                             	ResultSet.TYPE_SCROLL_INSENSITIVE, 
                                                 ResultSet.CONCUR_UPDATABLE
                                              ).executeQuery(
-                                                "SELECT * FROM Parcours WHERE id = " + _id
+                                                "SELECT * FROM Parcours_reponse WHERE id = " + _id
                                              );
             if(result.first())
             	rep_parc = new Reponse_parcours(
@@ -115,7 +115,7 @@ public ArrayList findAll() {
 	                                            	ResultSet.TYPE_SCROLL_INSENSITIVE, 
 	                                                ResultSet.CONCUR_UPDATABLE
 	                                             ).executeQuery(
-	                                                "SELECT * FROM Parcours"
+	                                                "SELECT * FROM Parcours_reponse"
 	                                             );
 	            while(result.next()){
 					

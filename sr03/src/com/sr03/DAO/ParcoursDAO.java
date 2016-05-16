@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.sr03.beans.*;
 import com.sr03.DAO.*;
@@ -32,9 +33,9 @@ public class ParcoursDAO extends DAO<Parcours> {
                                                   );
 				
 				prepare.setLong(1, id);
-				((ArrayList) prepare).set(3, _obj.getUtilisateur());
-				((ArrayList) prepare).set(3, _obj.getQuestionnaire());
-				prepare.setLong(4, _obj.getScore());
+				prepare.setInt(2, (int) _obj.getUtilisateur().getId());
+				prepare.setInt(3, (int) _obj.getQuestionnaire().getId());
+				prepare.setInt(4, _obj.getScore());
 				prepare.setTime(5, _obj.getDuree());
 
 				prepare.executeUpdate();
@@ -286,7 +287,7 @@ public ArrayList findAll() {
 
 	}
 
-public ArrayList findQuestionnairesLibre() {
+public ArrayList findQuestionnairesLibre(int _user_id) {
 	
 	ArrayList QuestionnaireArray = new ArrayList();
 	Questionnaire questionnaire = new Questionnaire();
@@ -299,7 +300,7 @@ public ArrayList findQuestionnairesLibre() {
                                             	ResultSet.TYPE_SCROLL_INSENSITIVE, 
                                                 ResultSet.CONCUR_UPDATABLE
                                              ).executeQuery(
-                                                "SELECT distinct * FROM Questionnaire T1 LEFT OUTER JOIN Parcours T2 ON T1.id= T2.questionnaire WHERE T2.questionnaire IS NULL"
+                                                "SELECT distinct * FROM Questionnaire T1 LEFT OUTER JOIN Parcours T2 ON T1.id= T2.questionnaire AND T2.Utilisateur = "+_user_id+"  WHERE T2.questionnaire IS NULL"
                                              );
             while(result.next()){
             	

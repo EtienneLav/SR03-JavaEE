@@ -85,6 +85,23 @@
     <url-pattern>/stagiaire/landing/accueilQuestionnaire</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>QuestionToDisplay</servlet-name>
+    <servlet-class>com.sr03.stagiaire.QuestionToDisplay</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>QuestionToDisplay</servlet-name>
+    <url-pattern>/stagiaire/question</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>ValidationQuestionnaire</servlet-name>
+    <servlet-class>com.sr03.stagiaire.ValidationQuestionnaire</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ValidationQuestionnaire</servlet-name>
+    <url-pattern>/stagiaire/validation</url-pattern>
+  </servlet-mapping>
   
   
   <filter>

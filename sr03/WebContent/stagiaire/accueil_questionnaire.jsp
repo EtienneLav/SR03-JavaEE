@@ -21,7 +21,7 @@
 					<h5>Bonne chance ! </h5>
 					
 					<br>
-					<a href="#"><button type="button" class="btn btn-success">Démarrer</button></a>
+					<a href="/sr03/stagiaire/question?questionnaire_id=${ questionnaire.id }"><button type="button" class="btn btn-success">Démarrer</button></a>
 					<a href="/sr03/stagiaire/landing"><button type="button" class="btn btn-warning">Retour</button></a>
 				</div>
             </div>

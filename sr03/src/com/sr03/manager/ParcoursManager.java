@@ -43,7 +43,7 @@ public class ParcoursManager{
 		ParcoursArray = this.parcoursDAO.findByUtilisateur(_id);
 		
 		ArrayList QuestionnaireArray = new ArrayList();
-		QuestionnaireArray = this.parcoursDAO.findQuestionnairesLibre();
+		QuestionnaireArray = this.parcoursDAO.findQuestionnairesLibre(_id);
 		
 		request.setAttribute("questionnaires_libres", QuestionnaireArray);
 
@@ -70,7 +70,7 @@ public class ParcoursManager{
 		FieldParcours = this.parcoursDAO.findByQuestionnaire(_id);
 		
 		//Calcul du score moyen et temps moyen
-		int score_moyen = 0;
+		float score_moyen = 0;
 		Time duree_moyenne;
 		int minutes = 0;
 		int secondes = 0;
