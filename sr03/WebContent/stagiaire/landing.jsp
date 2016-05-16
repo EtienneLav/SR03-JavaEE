@@ -135,7 +135,7 @@
 				      			for (int i = 0 ; i < questionnaires_libres.size() ; i++) {
 				    	 			Questionnaire questionnaire_current = (Questionnaire) questionnaires_libres.get(i);
 				    	  		%>
-					     		<li><a href="#"><% out.print(questionnaire_current.getSujet()); %></a></li>
+					     		<li><a href="/sr03/stagiaire/landing/accueilQuestionnaire?questionnaire_id=<% out.print(questionnaire_current.getId());%>"><% out.print(questionnaire_current.getSujet()); %></a></li>
 					     		<% } 
 				      		else
 				      			%>Aucun

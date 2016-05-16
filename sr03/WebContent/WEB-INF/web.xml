@@ -76,6 +76,16 @@
     <url-pattern>/stagiaire/landing/parcoursdetails</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>AccueilQuestionnaire</servlet-name>
+    <servlet-class>com.sr03.stagiaire.AccueilQuestionnaire</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AccueilQuestionnaire</servlet-name>
+    <url-pattern>/stagiaire/landing/accueilQuestionnaire</url-pattern>
+  </servlet-mapping>
+  
+  
   
   <filter>
     <filter-name>RestrictionFilterAdmin</filter-name>
