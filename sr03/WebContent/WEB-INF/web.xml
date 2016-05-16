@@ -103,6 +103,15 @@
     <url-pattern>/stagiaire/validation</url-pattern>
   </servlet-mapping>
   
+   <servlet>
+    <servlet-name>ajax</servlet-name>
+    <servlet-class>com.sr03.stagiaire.ajax</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ajax</servlet-name>
+    <url-pattern>/stagiaire/ajax</url-pattern>
+  </servlet-mapping>
+  
   
   <filter>
     <filter-name>RestrictionFilterAdmin</filter-name>

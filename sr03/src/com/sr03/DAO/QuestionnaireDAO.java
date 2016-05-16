@@ -149,5 +149,38 @@ public class QuestionnaireDAO extends DAO<Questionnaire> {
 
 	}
 	
+	
+	public ArrayList findBySubject(String _string) {
+		
+		ArrayList questionnaire = new ArrayList();
+		Questionnaire quest;
+		try {
+
+				
+	            ResultSet result = this.connect
+	                                   .createStatement(
+	                                            	ResultSet.TYPE_SCROLL_INSENSITIVE, 
+	                                                ResultSet.CONCUR_UPDATABLE
+	                                             ).executeQuery(
+	                                                "SELECT * FROM Questionnaire WHERE sujet LIKE "+_string
+	                                             );
+	            while(result.next()){
+					
+	            	quest = new Questionnaire(
+                            				result.getLong("id"),
+                                            result.getString("sujet"),
+                                            result.getBoolean("status")
+                                        );	
+	            	questionnaire.add(quest);	
+					
+	            }
+            
+		    } catch (SQLException e) {
+		            e.printStackTrace();
+		    }
+		   return questionnaire;
+
+	}
+	
 		
 }

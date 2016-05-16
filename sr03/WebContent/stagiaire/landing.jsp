@@ -149,8 +149,65 @@
 		</div>
 		
 		
+		
+		
+		<form class="form-inline">
+		  <div class="form-group">
+		    <label for="exampleInputName2">Mot-clé</label>
+		    <input type="text" name="recherche" class="form-control" id="rechercher" placeholder="rechercher...">
+		  </div>
+		  <button class="LienModal" type="submit" class="btn btn-default btn-lg">Rechercher</button>
+
+		</form>
+		
+		
+		<!-- Event Modal -->
+		<div id="modal" class="modal fade">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		 
+		                <div class="modal-header">
+		                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                    <h4 class="modal-title">Recherche</h4>
+		                </div>
+		                <div class="modal-body">
+		                    <p>Loading...</p>
+		                </div>
+		                
+		 
+		        </div>
+		        <!-- /.modal-content -->
+		    </div>
+		    <!-- /.modal-dialog -->
+		</div>
+		<!-- Event modal -->
+			
+		
     </div>
 </section>
 
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script>
 
+		$(".LienModal").click(function(oEvt){
+		    oEvt.preventDefault();
+		    var Recherche=$('#rechercher').val();
+		    
+		        $(".modal-body").fadeIn(50).html('<div style="text-align:center; margin-right:auto; margin-left:auto">Patientez...</div>');
+		        $.ajax({
+		            type:"GET",
+		            data : "Recherche="+Recherche,
+		            url:"/sr03/stagiaire/ajax",
+		            error:function(msg){
+		                $(".modal-body").addClass("tableau_msg_erreur").fadeOut(800).fadeIn(800).fadeOut(400).fadeIn(400).html('<div style="margin-right:auto; margin-left:auto; text-align:center">Impossible de charger cette page</div>');
+		            },
+		            success:function(data){
+		            	 $(".modal-body").fadeIn(200).html(data);
+		            	
+		            	 $('#modal').modal({'show' : true});
+		            }
+		        });
+		    });
+    
+    </script>
 <%@ include file="../WEB-INF/footer.jsp" %>
