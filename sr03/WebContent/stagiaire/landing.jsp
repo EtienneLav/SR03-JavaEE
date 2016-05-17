@@ -19,49 +19,72 @@
         </div>
         
         <div class="well">
-			<h4>Modifications compte :</h4>
+			<h4>Modification compte :</h4>
 	        <form class="form-inline" method="POST" action ="/sr03/stagiaire/landing">
-	  			<div class="form-group">
-	   				<label class="sr-only">Nom</label>
-	    			<p class="form-control-static">Nom : </p>
-	  			</div>
-	  			<div class="form-group">
-	    			<label for="inputName" class="sr-only"></label>
-	    			<input name ="nom" type="name" class="form-control" id="inputName" placeholder="${ utilisateur.nom }" value="${ utilisateur.nom }">
-	  			</div>
-	  			
-	  			<div class="form-group">
-	   				<label class="sr-only">email</label>
-	    			<p class="form-control-static">Email : </p>
-	  			</div>
-	  			<div class="form-group">
-	    			<label for="inputName" class="sr-only"></label>
-	    			<input name ="email" type="email" class="form-control" id="inputEmail" placeholder="${ utilisateur.email }" value="${ utilisateur.email }">
-	  			</div>
-	  			
-	  			<div class="form-group">
-	   				<label class="sr-only">Société</label>
-	    			<p class="form-control-static">Société : </p>
-	  			</div>
-	  			<div class="form-group">
-	    			<label for="inputName" class="sr-only"></label>
-	    			<input name ="societe" type="societe" class="form-control" id="inputSociete" placeholder="${ utilisateur.societe }" value="${ utilisateur.societe }">
-	  			</div>
-	  			
-	  			<div class="form-group">
-	   				<label class="sr-only">Téléphone</label>
-	    			<p class="form-control-static">Téléphone : </p>
-	  			</div>
-	  			<div class="form-group">
-	    			<label for="inputName" class="sr-only"></label>
-	    			<input name ="telephone" type="telephone" class="form-control" id="inputTelephone" placeholder="${ utilisateur.telephone }" width="10" value="${ utilisateur.telephone }">
-	  			</div>
-	  		<button type="submit" class="btn btn-default">Valider</button>
+	        
+		        <table class="table" style=" border-top: none;">
+		        
+		        <tr>
+		        	<td style=" border-top: none;">
+			  			<div class="form-group">
+			   				<label class="sr-only">Nom</label>
+			    			<p class="form-control-static">Nom : </p>
+			  			</div>
+			  		</td>
+			  		<td style=" border-top: none;">
+			  			<div class="form-group">
+			    			<label for="inputName" class="sr-only"></label>
+			    			<input name ="nom" type="name" class="form-control" id="inputName" placeholder="${ utilisateur.nom }" value="${ utilisateur.nom }">
+			  			</div>
+			  		</td>
+			  		<td style=" border-top: none;">	
+			  			<div class="form-group">
+			   				<label class="sr-only">email</label>
+			    			<p class="form-control-static">Email : </p>
+			  			</div>
+			  		</td>
+			  		<td style=" border-top: none;">
+			  			<div class="form-group">
+			    			<label for="inputName" class="sr-only"></label>
+			    			<input name ="email" type="email" class="form-control" id="inputEmail" placeholder="${ utilisateur.email }" value="${ utilisateur.email }">
+			  			</div>
+			  		</td>
+			  	</tr>
+			  	<tr>
+			  		<td style=" border-top: none;">
+			  			<div class="form-group">
+			   				<label class="sr-only">Société</label>
+			    			<p class="form-control-static">Société : </p>
+			  			</div>
+			  		</td>
+			  		<td style=" border-top: none;">
+			  			<div class="form-group">
+			    			<label for="inputName" class="sr-only"></label>
+			    			<input name ="societe" type="societe" class="form-control" id="inputSociete" placeholder="${ utilisateur.societe }" value="${ utilisateur.societe }">
+			  			</div>
+			  		</td>
+			  		<td style=" border-top: none;">	
+			  			<div class="form-group">
+			   				<label class="sr-only">Téléphone</label>
+			    			<p class="form-control-static">Téléphone : </p>
+			  			</div>
+			  		</td>
+			  		<td style=" border-top: none;">
+			  			<div class="form-group">
+			    			<label for="inputName" class="sr-only"></label>
+			    			<input name ="telephone" type="telephone" class="form-control" id="inputTelephone" placeholder="${ utilisateur.telephone }" width="10" value="${ utilisateur.telephone }">
+			  			</div>
+			  		</td>
+			  	<tr>
+			  	<tr>
+			  		<td style=" border-top: none;">
+			  			<button type="submit" class="btn btn-default">Valider</button>
+			  		</td>
+		  		</tr>
+		  		</table>
 			</form>
 		</div>
-		
 
-		
 	
 		 <div class="row">
 	        <div class="col-lg-12">
@@ -133,9 +156,9 @@
 				      		ArrayList questionnaires_libres = (ArrayList)request.getAttribute("questionnaires_libres");
 				      		if (questionnaires_libres.size() != 0)
 				      			for (int i = 0 ; i < questionnaires_libres.size() ; i++) {
-				    	 			Questionnaire questionnaire_current = (Questionnaire) questionnaires_libres.get(i);
+				    	 			Questionnaire questionnaire_libre_current = (Questionnaire) questionnaires_libres.get(i);
 				    	  		%>
-					     		<li><a href="/sr03/stagiaire/landing/accueilQuestionnaire?questionnaire_id=<% out.print(questionnaire_current.getId());%>"><% out.print(questionnaire_current.getSujet()); %></a></li>
+					     		<li><a href="/sr03/stagiaire/landing/accueilQuestionnaire?questionnaire_id=<% out.print(questionnaire_libre_current.getId());%>"><% out.print(questionnaire_libre_current.getSujet()); %></a></li>
 					     		<% } 
 				      		else
 				      			%>Aucun
@@ -172,9 +195,7 @@
 		                </div>
 		                <div class="modal-body">
 		                    <p>Loading...</p>
-		                </div>
-		                
-		 
+		                </div>        		 
 		        </div>
 		        <!-- /.modal-content -->
 		    </div>

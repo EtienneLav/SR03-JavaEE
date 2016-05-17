@@ -2,10 +2,10 @@
 <%@ page import="com.sr03.beans.*"%>
 
 					 <% 
-					    ArrayList questionnaire = (ArrayList)request.getAttribute("questionnaires");
-					 ArrayList nombre_question = (ArrayList)request.getAttribute("nombre_questions");
+					    ArrayList questionnaires = (ArrayList)request.getAttribute("questionnaires");
+					 ArrayList nombre_questions = (ArrayList)request.getAttribute("nombre_questions");
 					 
-					  	if(questionnaire.size() >0)	 {
+					  	if(questionnaires.size() >0)	 {
 					  		
 					  		%><table class="table table-striped">
 					  			<tr>
@@ -15,9 +15,9 @@
 								</tr>
 					  		<%
 					  	 
-					     for (int i = 0 ; i < questionnaire.size() ; i++) {
-					     	Questionnaire questionnaire_current = (Questionnaire) questionnaire.get(i);
-					 	  	int nombre_question_current = (int) nombre_question.get(i);
+					     for (int i = 0 ; i < questionnaires.size() ; i++) {
+					     	Questionnaire questionnaire_current = (Questionnaire) questionnaires.get(i);
+					 	  	int nombre_question_current = (int) nombre_questions.get(i);
 					     	 %>
 					     	 <tr>
 							    <td align="center"><a href="/sr03/stagiaire/landing/accueilQuestionnaire?questionnaire_id=<% out.print(questionnaire_current.getId());%>"><% out.print(questionnaire_current.getSujet()); %></a></td>

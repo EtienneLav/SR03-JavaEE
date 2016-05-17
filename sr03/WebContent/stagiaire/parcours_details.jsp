@@ -50,11 +50,11 @@
 					  	 
 					     for (int j = 0 ; j < questionArray.size() ; j++) {
 					     	Question question_current = (Question) questionArray.get(j);
-					     	Reponse reponse_current_correct = (Reponse) reponseArray.get(j);
-					     	Reponse reponse_user_current = (Reponse) reponseUserArray.get(j);
+					     	Reponse reponse_correcte_current = (Reponse) reponseArray.get(j);
+					     	Reponse reponse_utilisateur_current = (Reponse) reponseUserArray.get(j);
 					     	
 					     	String color_row;
-					     	if(reponse_user_current.getId() == reponse_current_correct.getId()){
+					     	if(reponse_utilisateur_current.getId() == reponse_correcte_current.getId()){
 					     		color_row = "success";
 					     	}
 					     	
@@ -65,8 +65,8 @@
 						  <tr>
 						  	<td align="center"><% out.print(question_current.getOrdre()); %></th>
 						    <td align="center"><% out.print(question_current.getIntitule()); %></th>
-						    <td class="<% out.print(color_row); %>" align="center"><% out.print(reponse_user_current.getIntitule()); %></td>
-						    <td align="center"><% out.print(reponse_current_correct.getIntitule()); %></td>
+						    <td class="<% out.print(color_row); %>" align="center"><% out.print(reponse_utilisateur_current.getIntitule()); %></td>
+						    <td align="center"><% out.print(reponse_correcte_current.getIntitule()); %></td>
 						     
 						  </tr>
 						  <% } %>
