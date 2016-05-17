@@ -7,9 +7,21 @@
 				<h1><center> Questionnaire ${ questionnaire.sujet } </center></h1><br><br>
 				<div class="well">
 					
-					
 					<% 
 					
+						Boolean a_aucune_question = (Boolean)request.getAttribute("aucune_question"); 
+						if (a_aucune_question){
+					%>
+						Erreur.. Ce questionnaire ne comporte aucune question.. Merci de le signaler
+						<br>
+						<br>
+					<% 
+					
+						} 
+						
+						else {
+							
+						
 						Boolean est_derniere_question = (Boolean)request.getAttribute("est_derniere_question"); 
 						if (est_derniere_question){
 					%>
@@ -47,7 +59,7 @@
 							 </form>
 							
 							<br>
-						<% } %>
+						<% } }%>
 					<a href="/sr03/stagiaire/landing"><button type="button" class="btn btn-warning">Accueil</button></a>
 				</div>
             </div>

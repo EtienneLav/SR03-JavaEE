@@ -59,7 +59,6 @@ public class ParcoursManager{
 	
 		request.setAttribute("ranking_utilisateur", RankingParcours);
 		
-		
 		return request;
 	}
 	

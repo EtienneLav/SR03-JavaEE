@@ -37,21 +37,27 @@ public class QuestionToDisplay extends HttpServlet {
 
 		question = questionDAO.findFromQuestionnaire(Long.valueOf(questionnaire_id).longValue());
 		
-		Question question_a_afficher = (Question) question.get(0);
-		
-		//Récupere la liste des réponses possibles
-		
 		ArrayList liste_reponses_possibles = new ArrayList();
-		ReponseDAO reponseDAO;
-		reponseDAO = (ReponseDAO) DAOFactory.getReponseDAO();
-			
-		liste_reponses_possibles = reponseDAO.findFromQuestion(question_a_afficher.getId());
+		Question question_a_afficher = new Question();
 		
 		boolean est_derniere_question;
-		if(question.size() == 0)
+		if(question.size() == 0 || question == null){
 			 est_derniere_question = true;
-		else
+			 request.setAttribute("aucune_question", true);
+		}
+		else {
 			est_derniere_question = false;
+			 question_a_afficher = (Question) question.get(0);
+			
+			//Récupere la liste des réponses possibles
+			
+			ReponseDAO reponseDAO;
+			reponseDAO = (ReponseDAO) DAOFactory.getReponseDAO();
+				
+			liste_reponses_possibles = reponseDAO.findFromQuestion(question_a_afficher.getId());
+			request.setAttribute("aucune_question", false);
+		}
+		
 
 		//Variables de session pour la question courrante et la date de début du questionnaire
 		Date current_date = new Date();
