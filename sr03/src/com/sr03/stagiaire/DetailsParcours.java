@@ -36,8 +36,7 @@ public class DetailsParcours extends HttpServlet {
 		ParcoursGestion parcGestion = new ParcoursGestion();
 		request = parcGestion.doGetUtilisateurs(request, response, (int) parcours.getQuestionnaire().getId(), utilisateur_id, Integer.parseInt(number_parcours));
 		
-		
-		
+
 		this.getServletContext().getRequestDispatcher( "/stagiaire/parcours_details.jsp" ).forward( request, response );
 	}
 

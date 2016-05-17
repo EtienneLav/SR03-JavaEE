@@ -19,10 +19,10 @@
 					     	Questionnaire questionnaire_current = (Questionnaire) questionnaires.get(i);
 					 	  	int nombre_question_current = (int) nombre_questions.get(i);
 					     	 %>
-					     	 <tr>
-							    <td align="center"><a href="/sr03/stagiaire/landing/accueilQuestionnaire?questionnaire_id=<% out.print(questionnaire_current.getId());%>"><% out.print(questionnaire_current.getSujet()); %></a></td>
-							    <td align="center"><% out.print(nombre_question_current); %></td> 
-						 	 </tr>
+						     	 <tr>
+								    <td align="center"><a href="/sr03/stagiaire/landing/accueilQuestionnaire?questionnaire_id=<% out.print(questionnaire_current.getId());%>"><% out.print(questionnaire_current.getSujet()); %></a></td>
+								    <td align="center"><% out.print(nombre_question_current); %></td> 
+							 	 </tr>
 						<%
 					     }
 					  		

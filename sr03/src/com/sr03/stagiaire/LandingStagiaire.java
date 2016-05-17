@@ -22,9 +22,10 @@ public class LandingStagiaire extends HttpServlet {
 		request.setAttribute("utilisateur", util);
 		
 		//Gestion pour afficher parcours déjà faits et les autres disponibles
-		int id = (int) (long) session.getAttribute("utilisateur_ID");
+		int user_id = (int) (long) session.getAttribute("utilisateur_ID");
+		
 		ParcoursGestion parcGestion = new ParcoursGestion();
-		request = parcGestion.doGetParcours(request, response, id);
+		request = parcGestion.doGetParcours(request, response, user_id);
 		
 		this.getServletContext().getRequestDispatcher( "/stagiaire/landing.jsp" ).forward( request, response );
 	}
@@ -35,9 +36,9 @@ public class LandingStagiaire extends HttpServlet {
 		Utilisateur updated_stagiaire = new Utilisateur();
 		
 		//Gestion pour afficher parcours déjà faits et les autres disponibles
-		int id = (int) (long) session.getAttribute("utilisateur_ID");
+		int user_id = (int) (long) session.getAttribute("utilisateur_ID");
 		ParcoursGestion parcGestion = new ParcoursGestion();
-		request = parcGestion.doGetParcours(request, response, id);
+		request = parcGestion.doGetParcours(request, response, user_id);
 		
 		//Récupère les info de l'utilisateur courant
 		Utilisateur current_stagiaire = DAOFactory.getUtilisateurDAO().find((long)session.getAttribute("utilisateur_ID"));
@@ -64,10 +65,10 @@ public class LandingStagiaire extends HttpServlet {
 		updated_stagiaire.setStatus(current_stagiaire.getStatus());
 		
 		//Mise à jour de l'utilisateur stagiaire
-		Utilisateur stagiaire = DAOFactory.getUtilisateurDAO().update(updated_stagiaire);
+		Utilisateur stagiaire_updated = DAOFactory.getUtilisateurDAO().update(updated_stagiaire);
 
 		//Renvoie de l'objet utilisateur de type stagiaire à notre même page
-		request.setAttribute("utilisateur", stagiaire);
+		request.setAttribute("utilisateur", stagiaire_updated);
 		
 		this.getServletContext().getRequestDispatcher( "/stagiaire/landing.jsp" ).forward( request, response );
 	}

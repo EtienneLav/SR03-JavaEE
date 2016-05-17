@@ -10,8 +10,8 @@
 					
 					<% 
 					
-						Boolean last_question = (Boolean)request.getAttribute("last_question"); 
-						if (last_question){
+						Boolean est_derniere_question = (Boolean)request.getAttribute("est_derniere_question"); 
+						if (est_derniere_question){
 					%>
 							<br>
 								Vous avez fini ce questionnaire sur le thème du  ${ questionnaire.sujet }<br>
@@ -28,7 +28,7 @@
 							 	<br>
 							 	
 							 	<% 
-							 	ArrayList reponses = (ArrayList)request.getAttribute("reponse");
+							 	ArrayList reponses = (ArrayList)request.getAttribute("liste_reponses_possibles");
 						      			for (int i = 0 ; i < reponses.size() ; i++) {
 						    	 			Reponse reponse_current = (Reponse) reponses.get(i);
 						    	 %>

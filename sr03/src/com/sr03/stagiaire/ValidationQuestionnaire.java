@@ -20,6 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.sr03.tools.*;
+
 public class ValidationQuestionnaire extends HttpServlet {
 	
 	public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
@@ -37,10 +39,11 @@ public class ValidationQuestionnaire extends HttpServlet {
 		//Récupération de la date de début du questionnaire
 		Date date_debut = new Date();
 		date_debut = (Date) session.getAttribute("debut_questionnaire");
-		
+	
 		Time temps_debut_questionnaire = new Time(date_debut.getTime());
+		
 		//Récupération de l'identificateur du stagiaire
-		Utilisateur current_util = DAOFactory.getUtilisateurDAO().find((long)session.getAttribute("utilisateur_ID"));
+		Utilisateur utilisateur = DAOFactory.getUtilisateurDAO().find((long)session.getAttribute("utilisateur_ID"));
 		
 		//Calcul du score
 		int score_questionnaire = 0;
@@ -58,45 +61,24 @@ public class ValidationQuestionnaire extends HttpServlet {
  			
  			System.out.println("score du questionnaire : "+score_questionnaire);
 		}
+		
 		//Calcul de la durée effective du questionnaire
-		int secondes_debut = temps_debut_questionnaire.getSeconds();
-		int minutes_debut = temps_debut_questionnaire.getMinutes();
-		int heures_debut = temps_debut_questionnaire.getHours();
-
-		int total_second_debut = heures_debut *3600 + minutes_debut * 60 + secondes_debut;
-		
-		Date current_date = new Date();
-		Time current_time = new Time(current_date.getTime());
-		int secondes_now = current_time.getSeconds();
-		int minutes_now = current_time.getMinutes();
-		int heures_now = current_time.getHours();
-
-		int total_second_now = heures_now *3600 + minutes_now * 60 + secondes_now;
-		
-		int duree_questionnaire_second = total_second_now - total_second_debut;
-		
-		int heures_questionnaire = duree_questionnaire_second/3600;
-		duree_questionnaire_second = duree_questionnaire_second - heures_questionnaire*3600;
-		
-		int minutes_questionnaire = duree_questionnaire_second/60;
-		duree_questionnaire_second = duree_questionnaire_second - minutes_questionnaire*60;
-		
-		Time duree_questionnaire = new Time(heures_questionnaire, minutes_questionnaire, duree_questionnaire_second );
-		
+		Fonctions fonction = new Fonctions();
+		Time duree_questionnaire = fonction.timeDifferenceWithNow(temps_debut_questionnaire);
 		System.out.println("duree du questionnaire : "+duree_questionnaire.toString());
 		
 		//Création du parcours correspondant
 		ParcoursDAO parcoursDAO;
 		parcoursDAO = (ParcoursDAO) DAOFactory.getParcoursDAO();
 		
-		Parcours current_parcours = new Parcours (-1, current_util, questionnaire, score_questionnaire, duree_questionnaire);
+		Parcours current_parcours = new Parcours (-1, utilisateur, questionnaire, score_questionnaire, duree_questionnaire);
 		
 		Parcours created_parcours = new Parcours();
 		created_parcours = parcoursDAO.create(current_parcours);
 		
 		System.out.println("id du parcours créé : "+ created_parcours.getId());
-		//Création du parcours de réponse correspondant
 		
+		//Création du parcours de réponse correspondant
 		Reponse_parcoursDAO reponse_parcoursDAO;
 		reponse_parcoursDAO = (Reponse_parcoursDAO) DAOFactory.getReponseparcoursDAO();
 		

@@ -41,17 +41,17 @@ public class QuestionToDisplay extends HttpServlet {
 		
 		//Récupere la liste des réponses possibles
 		
-		ArrayList reponse = new ArrayList();
+		ArrayList liste_reponses_possibles = new ArrayList();
 		ReponseDAO reponseDAO;
 		reponseDAO = (ReponseDAO) DAOFactory.getReponseDAO();
 			
-		reponse = reponseDAO.findFromQuestion(question_a_afficher.getId());
+		liste_reponses_possibles = reponseDAO.findFromQuestion(question_a_afficher.getId());
 		
-		boolean last_question;
+		boolean est_derniere_question;
 		if(question.size() == 0)
-			 last_question = true;
+			 est_derniere_question = true;
 		else
-			last_question = false;
+			est_derniere_question = false;
 
 		//Variables de session pour la question courrante et la date de début du questionnaire
 		Date current_date = new Date();
@@ -68,8 +68,8 @@ public class QuestionToDisplay extends HttpServlet {
 		
 		
 		//Variables de requêtes pour afficher le questionnaire actuel, la question actuelle et la liste des réponses actuelles
-		request.setAttribute("last_question", last_question);
-		request.setAttribute("reponse", reponse);
+		request.setAttribute("est_derniere_question", est_derniere_question);
+		request.setAttribute("liste_reponses_possibles", liste_reponses_possibles);
 		request.setAttribute("question", question_a_afficher);
 		request.setAttribute("questionnaire", questionnaire);
 		
@@ -110,24 +110,24 @@ public class QuestionToDisplay extends HttpServlet {
 		question = questionDAO.findFromQuestionnaire(Long.valueOf(questionnaire_id).longValue());
 		
 		Question question_a_afficher = new Question();
-		ArrayList reponse = new ArrayList();
+		ArrayList liste_reponses_possibles = new ArrayList();
 		
 		
 		//Test si on est arrivé au bout du questionnaire ..
-				boolean last_question;
+				boolean est_derniere_question;
 				if( question.size()  <= (question_courante)){
-					 last_question = true;
+					 est_derniere_question = true;
 					 
 				}
 				else {
-					last_question = false;
+					est_derniere_question = false;
 					question_a_afficher = (Question) question.get(question_courante);
 					
 					//Récupere la liste des réponses possibles
 					ReponseDAO reponseDAO;
 					reponseDAO = (ReponseDAO) DAOFactory.getReponseDAO();
 						
-					reponse = reponseDAO.findFromQuestion(question_a_afficher.getId());
+					liste_reponses_possibles = reponseDAO.findFromQuestion(question_a_afficher.getId());
 					
 				}
 
@@ -138,8 +138,8 @@ public class QuestionToDisplay extends HttpServlet {
 		
 		//Variables de requêtes pour afficher le questionnaire actuel, la question actuelle et la liste des réponses actuelles
 		
-		request.setAttribute("last_question", last_question);
-		request.setAttribute("reponse", reponse);
+		request.setAttribute("est_derniere_question", est_derniere_question);
+		request.setAttribute("liste_reponses_possibles", liste_reponses_possibles);
 		request.setAttribute("question", question_a_afficher);
 		request.setAttribute("questionnaire", questionnaire);
 	

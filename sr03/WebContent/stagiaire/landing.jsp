@@ -109,7 +109,7 @@
 						    <th style="text-align: center;">Score obtenu</th>
 						    <th style="text-align: center;">Durée</th>
 						    <th style="text-align: center;">Détails</th>
-						</tr>
+						  </tr>
 					  		 <% 
 					     ArrayList parcours = (ArrayList)request.getAttribute("parcours");
 					     for (int i = 0 ; i < parcours.size() ; i++) {

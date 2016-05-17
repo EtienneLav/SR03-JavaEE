@@ -17,8 +17,7 @@
         </div>
         
         
-        
-        
+
         <div class="row">
 	        <div class="col-lg-12">
 	        	<h3>Détail de votre parcours</h3>					    	    
@@ -40,7 +39,6 @@
 						    <th style="text-align: center;">Question</th>
 						    <th style="text-align: center;">Votre réponse</th> 
 						    <th style="text-align: center;">Réponse exacte</th>
-
 						</tr>
 					  		 <% 
 					     ArrayList questionArray = (ArrayList)request.getAttribute("question");
@@ -67,7 +65,6 @@
 						    <td align="center"><% out.print(question_current.getIntitule()); %></th>
 						    <td class="<% out.print(color_row); %>" align="center"><% out.print(reponse_utilisateur_current.getIntitule()); %></td>
 						    <td align="center"><% out.print(reponse_correcte_current.getIntitule()); %></td>
-						     
 						  </tr>
 						  <% } %>
 						</table>
@@ -111,7 +108,7 @@
 						    <th style="text-align: center;">Nom</th> 
 						    <th style="text-align: center;">Score</th>
 						    <th style="text-align: center;">Durée</th>
-						</tr>
+						  </tr>
 					  		 <% 
 					     ArrayList ranking = (ArrayList)request.getAttribute("ranking_utilisateur");
 					  		 
@@ -123,8 +120,7 @@
 						    <td align="center"><% out.print(i+1); %></th>
 						    <td align="center"><% out.print(ranking_current.getUtilisateur().getNom()); %></td> 
 						    <td align="center"><% out.print(ranking_current.getScore()); %></td>
-						    <td align="center"><% out.print(ranking_current.getDuree()); %></td>
-						     
+						    <td align="center"><% out.print(ranking_current.getDuree()); %></td>  
 						  </tr>
 						  <% } %>
 						</table>
