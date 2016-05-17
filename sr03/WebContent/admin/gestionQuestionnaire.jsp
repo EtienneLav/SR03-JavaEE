@@ -35,7 +35,7 @@
 						<form action="/sr03/admin/gestionQuestionnaire" method="get">
 						    <div class="form-group">
 						        <label for="intitule">Intitule :</label>
-						        <input type="text" id="modifierIntitule" name="modifierIntitule" class="form-control"/>
+						        <input type="text" value="${ questionnaire.sujet }" id="modifierIntitule" name="modifierIntitule" class="form-control"/>
 						    </div>
 							<input type="hidden" id="id" name="id" value="${ questionnaire.id }" class="form-control"/>
 							<button type="submit" class="btn btn-primary">Modifier</button>
