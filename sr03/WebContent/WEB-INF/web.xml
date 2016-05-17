@@ -104,11 +104,11 @@
   </servlet-mapping>
   
    <servlet>
-    <servlet-name>ajax</servlet-name>
-    <servlet-class>com.sr03.stagiaire.ajax</servlet-class>
+    <servlet-name>AjaxCallSearch</servlet-name>
+    <servlet-class>com.sr03.stagiaire.AjaxCallSearch</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ajax</servlet-name>
+    <servlet-name>AjaxCallSearch</servlet-name>
     <url-pattern>/stagiaire/ajax</url-pattern>
   </servlet-mapping>
   
