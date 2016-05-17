@@ -19,8 +19,11 @@ public class UtilisateursGestion {
         // Création d'un utilisateur si demandé dans la requête.
 		request = this.registerNewUser(request);
         
-		// Récupération de la liste des utilisateurs.
+		// Récupération de la liste des stagiaires.
 		request.setAttribute("stagiaires", UtilisateurDAO.findStagiaires());
+
+		// Récupération de la liste des admins.
+		request.setAttribute("admins", UtilisateurDAO.findAdmins());
 		
 		return request;
 	}

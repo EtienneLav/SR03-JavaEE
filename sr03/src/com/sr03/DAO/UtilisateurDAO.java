@@ -88,6 +88,42 @@ public class UtilisateurDAO extends DAO<Utilisateur> {
 
 	}
 	
+	public ArrayList findAdmins() {
+		ArrayList utilisateurs = new ArrayList();
+		Utilisateur util;
+		try {
+
+				
+	            ResultSet result = this.connect
+	                                   .createStatement(
+	                                            	ResultSet.TYPE_SCROLL_INSENSITIVE, 
+	                                                ResultSet.CONCUR_UPDATABLE
+	                                             ).executeQuery(
+	                                                "SELECT * FROM Utilisateur WHERE type = 'admin' AND status = 1"
+	                                             );
+	            while(result.next()){
+					
+                	util = new Utilisateur(
+                            				result.getLong("id"),
+                                            result.getString("email"),
+                                            result.getString("motDePasse"),
+                                            result.getString("nom"),
+                                            result.getString("societe"),
+                                            result.getString("telephone"),
+                                            result.getTimestamp("dateInscription"),
+                                            result.getBoolean("status"),
+                                            result.getString("type")
+                                        );	
+	                utilisateurs.add(util);	
+					
+	            }
+            
+		    } catch (SQLException e) {
+		            e.printStackTrace();
+		    }
+		   return utilisateurs;
+
+	}	
 	public Utilisateur findByMailAndMdp(String email, String mdp) {
 		Utilisateur util = new Utilisateur();
 		try {

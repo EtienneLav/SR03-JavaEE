@@ -39,7 +39,7 @@
 				    <div class="panel-heading" role="tab" id="headingOne">
 				      <h4 class="panel-title">
 				        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-				          Liste des utilisateurs
+				          Liste des Stagiaires
 				        </a>
 				      </h4>
 				    </div>
@@ -78,6 +78,55 @@
 						    <td><a href="#">Résultats</a></td> 
 						    <td><a href="#">Modifier</a></td> 
 						   	<td><a href="/sr03/admin/landing?delete=<% out.print(stagiaire.getId()); %>">Supprimer</a></td>
+						  </tr>
+						  <% } %>
+						</table>
+				      </div>
+				    </div>
+				  </div>
+				  <div class="panel panel-default">
+				    <div class="panel-heading" role="tab" id="headingOne3">
+				      <h4 class="panel-title">
+				        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne3" aria-expanded="false" aria-controls="collapseOne3">
+				          Liste des Admins
+				        </a>
+				      </h4>
+				    </div>
+				    <div id="collapseOne3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne3">
+				      <div class="panel-body">
+						<table class="table table-hover" style="width:100%">
+						  <tr>
+						    <th>id</th>
+						    <th>email</th> 
+						    <th>motDePasse</th>
+						    <th>nom</th>
+						    <th>societe</th>
+						    <th>telephone</th>
+						    <th>dateInscription</th>
+						    <th>status</th>
+						    <th>type</th>
+							<th></th>
+							<th></th>
+							<th></th>
+						</tr>
+					  		 <% 
+					     ArrayList admins = (ArrayList)request.getAttribute("admins");
+					     for (int i = 0 ; i < admins.size() ; i++) {
+					     	Utilisateur admin = (Utilisateur) admins.get(i);
+					     %>
+						  <tr>
+						    <th><% out.print(admin.getId()); %></th>
+						    <td><% out.print(admin.getEmail()); %></td> 
+						    <td><% out.print(admin.getMotDePasse()); %></td>
+						    <td><% out.print(admin.getNom()); %></td>
+						    <td><% out.print(admin.getSociete()); %></td>
+						    <td><% out.print(admin.getTelephone()); %></td>
+						    <td><% out.print(admin.getDateInscription()); %></td>
+						    <td><% out.print(admin.getStatus()); %></td>
+						    <td><% out.print(admin.getType()); %></td>
+						    <td><a href="#">Résultats</a></td> 
+						    <td><a href="#">Modifier</a></td> 
+						   	<td><a href="/sr03/admin/landing?delete=<% out.print(admin.getId()); %>">Supprimer</a></td>
 						  </tr>
 						  <% } %>
 						</table>
