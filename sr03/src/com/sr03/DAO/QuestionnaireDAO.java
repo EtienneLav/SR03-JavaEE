@@ -157,13 +157,12 @@ public class QuestionnaireDAO extends DAO<Questionnaire> {
 		Questionnaire quest;
 		try {
 
-				
-	            ResultSet result = this.connect
+			ResultSet result = this.connect
 	                                   .createStatement(
 	                                            	ResultSet.TYPE_SCROLL_INSENSITIVE, 
 	                                                ResultSet.CONCUR_UPDATABLE
 	                                             ).executeQuery(
-	                                                "SELECT * FROM Questionnaire WHERE sujet LIKE "+_string
+	                                                "SELECT * FROM Questionnaire WHERE status = 1 AND sujet LIKE "+_string
 	                                             );
 	            while(result.next()){
 					

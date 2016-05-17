@@ -96,7 +96,7 @@ public class UtilisateurDAO extends DAO<Utilisateur> {
                                             	ResultSet.TYPE_SCROLL_INSENSITIVE, 
                                                 ResultSet.CONCUR_UPDATABLE
                                              ).executeQuery(
-                                                "SELECT * FROM Utilisateur WHERE email = '" + email +"' AND motDePasse = '" + mdp +"'"
+                                                "SELECT * FROM Utilisateur WHERE status = 1 AND email = '" + email +"' AND motDePasse = '" + mdp +"'"
                                              );
             if(result.first())
             	util = new Utilisateur(
@@ -127,7 +127,7 @@ public class UtilisateurDAO extends DAO<Utilisateur> {
                                             	ResultSet.TYPE_SCROLL_INSENSITIVE, 
                                                 ResultSet.CONCUR_UPDATABLE
                                              ).executeQuery(
-                                                "SELECT * FROM Utilisateur WHERE id = " + id
+                                                "SELECT * FROM Utilisateur WHERE status = 1 AND id = " + id
                                              );
             if(result.first())
             	util = new Utilisateur(
@@ -185,15 +185,15 @@ public class UtilisateurDAO extends DAO<Utilisateur> {
 
 	public void delete(Utilisateur obj) {
 		try {
-			
-                this    .connect
-                    	.createStatement(
-                             ResultSet.TYPE_SCROLL_INSENSITIVE, 
-                             ResultSet.CONCUR_UPDATABLE
-                        ).executeUpdate(
-                             "DELETE FROM Utilisateur WHERE id = " + obj.getId()
-                        );
-			
+			int status = 0;
+            this    .connect
+                	.createStatement(
+                         ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                         ResultSet.CONCUR_UPDATABLE
+                    ).executeUpdate(
+                    	"UPDATE Utilisateur SET status = '0'"+
+                                	" WHERE id = " + obj.getId()                        		
+                    );
 	    } catch (SQLException e) {
 	            e.printStackTrace();
 	    }

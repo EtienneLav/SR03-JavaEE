@@ -81,7 +81,7 @@ public class ReponseDAO extends DAO<Reponse> {
                                             	ResultSet.TYPE_SCROLL_INSENSITIVE, 
                                                 ResultSet.CONCUR_UPDATABLE
                                              ).executeQuery(
-                                                "SELECT * FROM Reponse WHERE question = " + question
+                                                "SELECT * FROM Reponse WHERE status = 1 AND question = " + question
                                              );
             while(result.next()){
             	util = new Reponse(
@@ -159,7 +159,7 @@ public class ReponseDAO extends DAO<Reponse> {
                                             	ResultSet.TYPE_SCROLL_INSENSITIVE, 
                                                 ResultSet.CONCUR_UPDATABLE
                                              ).executeQuery(
-                                                "SELECT count(*) AS nb FROM Reponse WHERE question = " + idQuestion
+                                                "SELECT count(*) AS nb FROM Reponse WHERE status = 1 AND question = " + idQuestion
                                              );
             if(result.first()) {
             	nb = result.getInt("nb") + 1;
@@ -178,7 +178,7 @@ public class ReponseDAO extends DAO<Reponse> {
                                             	ResultSet.TYPE_SCROLL_INSENSITIVE, 
                                                 ResultSet.CONCUR_UPDATABLE
                                              ).executeQuery(
-                                                "SELECT * FROM Reponse WHERE question = " + question + " AND correct = 1"
+                                                "SELECT * FROM Reponse WHERE status = 1 AND question = " + question + " AND correct = 1"
                                              );
             if(result.first())
             	util = new Reponse(
@@ -207,7 +207,7 @@ public class ReponseDAO extends DAO<Reponse> {
                                             	ResultSet.TYPE_SCROLL_INSENSITIVE, 
                                                 ResultSet.CONCUR_UPDATABLE
                                              ).executeQuery(
-                                                "SELECT * FROM Parcours_reponse, Reponse, Question WHERE Parcours_reponse.reponse = Reponse.id AND Reponse.question = Question.id AND Question.id = " + question + " AND Parcours_reponse.parcours = " + parcours
+                                                "SELECT * FROM Parcours_reponse, Reponse, Question WHERE Reponse.status = 1 AND Question.status = 1 AND Parcours_reponse.reponse = Reponse.id AND Reponse.question = Question.id AND Question.id = " + question + " AND Parcours_reponse.parcours = " + parcours
                                              );
             if(result.first())
             	util = new Reponse(

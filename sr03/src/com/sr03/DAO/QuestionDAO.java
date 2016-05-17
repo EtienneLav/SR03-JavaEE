@@ -136,7 +136,7 @@ public class QuestionDAO extends DAO<Question> {
                                             	ResultSet.TYPE_SCROLL_INSENSITIVE, 
                                                 ResultSet.CONCUR_UPDATABLE
                                              ).executeQuery(
-                                                "SELECT * FROM Question WHERE questionnaire = " + questionnaire +" ORDER BY ordre ASC"
+                                                "SELECT * FROM Question WHERE status = 1 AND questionnaire = " + questionnaire +" ORDER BY ordre ASC"
                                              );
             while(result.next()){
             	util = new Question(            			
@@ -164,7 +164,7 @@ public class QuestionDAO extends DAO<Question> {
                                             	ResultSet.TYPE_SCROLL_INSENSITIVE, 
                                                 ResultSet.CONCUR_UPDATABLE
                                              ).executeQuery(
-                                                "SELECT count(*) AS nb FROM Question WHERE questionnaire = " + idQuestionnaire
+                                                "SELECT count(*) AS nb FROM Question WHERE status = 1 AND questionnaire = " + idQuestionnaire
                                              );
             if(result.first()) {
             	nb = result.getInt("nb") +1;
