@@ -156,7 +156,7 @@ public class ParcoursDAO extends DAO<Parcours> {
 	                                            	ResultSet.TYPE_SCROLL_INSENSITIVE, 
 	                                                ResultSet.CONCUR_UPDATABLE
 	                                             ).executeQuery(
-	                                                "SELECT * FROM Parcours, Questionnaire, Utilisateur WHERE Utilisateur.id = Parcours.utilisateur AND Questionnaire.id = Parcours.questionnaire AND Questionnaire.id = " + _questionnaire_id + " ORDER BY Parcours.score DESC"
+	                                                "SELECT * FROM Parcours, Questionnaire, Utilisateur WHERE Questionnaire.status = 1 AND Utilisateur.id = Parcours.utilisateur AND Questionnaire.id = Parcours.questionnaire AND Questionnaire.id = " + _questionnaire_id + " ORDER BY Parcours.score DESC"
 	                                             );
 	            while(result.next()){
 	            	
