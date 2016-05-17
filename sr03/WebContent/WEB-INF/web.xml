@@ -130,6 +130,23 @@
   </servlet-mapping>
   
   
+  <servlet>
+    <servlet-name>AjaxParcoursDone</servlet-name>
+    <servlet-class>com.sr03.stagiaire.AjaxParcoursDone</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AjaxParcoursDone</servlet-name>
+    <url-pattern>/stagiaire/parcoursDone</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AjaxParcoursNotDone</servlet-name>
+    <servlet-class>com.sr03.stagiaire.AjaxParcoursNotDone</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AjaxParcoursNotDone</servlet-name>
+    <url-pattern>/stagiaire/parcoursNotDone</url-pattern>
+  </servlet-mapping>
   
   
   <filter>

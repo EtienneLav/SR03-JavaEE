@@ -39,15 +39,51 @@ public class ParcoursManager{
 	
 	public HttpServletRequest getParcours(HttpServletRequest request, int _id) {
 		
+		//récupérer les parcours déjà effectués
 		ArrayList ParcoursArray = new ArrayList();
 		ParcoursArray = this.parcoursDAO.findByUtilisateur(_id);
 		
+		//Récupérer le nombre de parcours déjà effectués pour la pagination
+		int nombre_parcours_effectues ;
+		nombre_parcours_effectues = this.parcoursDAO.countParcoursDoneByUser(_id) - 1;
+				
+		//Adapter le nombre de page en fonction du nombre de parcours à afficher
+		int nombre_pages_parcours_effectues;
+		if(nombre_parcours_effectues <=10)
+			nombre_pages_parcours_effectues = 1;
+		else
+			nombre_pages_parcours_effectues = nombre_parcours_effectues/10 +1;
+				
+		System.out.println("nombre de page parcours effectues : "+nombre_pages_parcours_effectues);
+		request.setAttribute("nombre_parcours_effectues", nombre_parcours_effectues);
+		request.setAttribute("nombre_pages_parcours_effectues", nombre_pages_parcours_effectues);
+		
+		
+
+		//récupérer les parcours libres (non effectués)
 		ArrayList QuestionnaireArray = new ArrayList();
 		QuestionnaireArray = this.parcoursDAO.findQuestionnairesLibre(_id);
 		
-		request.setAttribute("questionnaires_libres", QuestionnaireArray);
+		//Récupérer le nombre de parcours déjà effectués pour la pagination
+		int nombre_parcours_non_effectues ;
+		nombre_parcours_non_effectues = this.parcoursDAO.countParcoursNotDoneByUser(_id) - 1;
+						
+		//Adapter le nombre de page en fonction du nombre de parcours à afficher
+		int nombre_pages_parcours_non_effectues;
+		if(nombre_parcours_non_effectues <=10)
+			nombre_pages_parcours_non_effectues = 1;
+		else
+			nombre_pages_parcours_non_effectues = nombre_parcours_effectues/10 +1;
+						
+		System.out.println("nombre de page parcours non effectues : "+nombre_pages_parcours_non_effectues);
+		request.setAttribute("nombre_parcours_non_effectues", nombre_parcours_non_effectues);
+		request.setAttribute("nombre_pages_parcours_non_effectues", nombre_pages_parcours_non_effectues);
+				
+				
 
+		request.setAttribute("questionnaires_libres", QuestionnaireArray);
 		request.setAttribute("parcours", ParcoursArray);
+		
 		return request;
 	}
 	

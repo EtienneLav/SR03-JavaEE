@@ -381,77 +381,208 @@ public ArrayList findUtilisateursByQuestions(int _questionnaire_id) {
 }
 
 
-public int countParcoursByQuestionnaire(int _questionnaire_id) {
-	int nb = 0;
-	try {
-        ResultSet result = this.connect
-                               .createStatement(
-                                        	ResultSet.TYPE_SCROLL_INSENSITIVE, 
-                                            ResultSet.CONCUR_UPDATABLE
-                                         ).executeQuery(
-                                            "SELECT count(*) AS nb FROM Utilisateur, Parcours WHERE Utilisateur.id = Parcours.utilisateur AND Parcours.questionnaire = "+ _questionnaire_id + " ORDER BY Parcours.score DESC"
-                                         );
-        if(result.first()) {
-        	nb = result.getInt("nb") +1;
-        }
-	    } catch (SQLException e) {
-	            e.printStackTrace();
-	    }
-	return nb;
-}
-
-
-public ArrayList findSpecifiqueIntervalle(int _questionnaire_id, int _limite_basse){
-	
-	 ArrayList ParcoursArray = new ArrayList();
-	 Parcours parc = new Parcours();
-	 Utilisateur utilisateur = new Utilisateur();
-	 
-	 Questionnaire questionnaire = new Questionnaire();
-	 
-	 try {
-           ResultSet result = this.connect
-                                  .createStatement(
-                                           	ResultSet.TYPE_SCROLL_INSENSITIVE, 
-                                               ResultSet.CONCUR_UPDATABLE
-                                            ).executeQuery(
-                                               "SELECT * FROM Parcours, Questionnaire, Utilisateur WHERE Questionnaire.status = 1 AND Utilisateur.id = Parcours.utilisateur AND Questionnaire.id = Parcours.questionnaire AND Questionnaire.id = " + _questionnaire_id + " ORDER BY Parcours.score DESC LIMIT 10 OFFSET "+_limite_basse
-                                            );
-           while(result.next()){
-           	
-           	utilisateur = new Utilisateur(
-           			result.getLong("Utilisateur.id"),
-           			result.getString("Utilisateur.email"),
-           			null,
-           			result.getString("Utilisateur.nom"),
-           			null,
-           			null,
-           			null,
-           			null,
-           			null
-           			);
-           	questionnaire = new Questionnaire(
-           			_questionnaire_id,
-           			result.getString("sujet"),
-           			result.getBoolean("status")
-           		);
-           	
-           	parc = new Parcours(
-           							result.getLong("id"),
-                                       utilisateur,
-                                       questionnaire, 
-                                       result.getInt("score"),
-                                       result.getTime("duree")
-                                   );
-           	ParcoursArray.add(parc);
-            }
-          
+	public int countParcoursByQuestionnaire(int _questionnaire_id) {
+		int nb = 0;
+		try {
+	        ResultSet result = this.connect
+	                               .createStatement(
+	                                        	ResultSet.TYPE_SCROLL_INSENSITIVE, 
+	                                            ResultSet.CONCUR_UPDATABLE
+	                                         ).executeQuery(
+	                                            "SELECT count(*) AS nb FROM Utilisateur, Parcours WHERE Utilisateur.id = Parcours.utilisateur AND Parcours.questionnaire = "+ _questionnaire_id + " ORDER BY Parcours.score DESC"
+	                                         );
+	        if(result.first()) {
+	        	nb = result.getInt("nb") +1;
+	        }
 		    } catch (SQLException e) {
 		            e.printStackTrace();
 		    }
-	 
-	 return ParcoursArray;
-}
+		return nb;
+	}
+
+
+	public ArrayList findSpecifiqueIntervalle(int _questionnaire_id, int _limite_basse){
+		
+		 ArrayList ParcoursArray = new ArrayList();
+		 Parcours parc = new Parcours();
+		 Utilisateur utilisateur = new Utilisateur();
+		 
+		 Questionnaire questionnaire = new Questionnaire();
+		 
+		 try {
+	           ResultSet result = this.connect
+	                                  .createStatement(
+	                                           	ResultSet.TYPE_SCROLL_INSENSITIVE, 
+	                                               ResultSet.CONCUR_UPDATABLE
+	                                            ).executeQuery(
+	                                               "SELECT * FROM Parcours, Questionnaire, Utilisateur WHERE Questionnaire.status = 1 AND Utilisateur.id = Parcours.utilisateur AND Questionnaire.id = Parcours.questionnaire AND Questionnaire.id = " + _questionnaire_id + " ORDER BY Parcours.score DESC LIMIT 10 OFFSET "+_limite_basse
+	                                            );
+	           while(result.next()){
+	           	
+	           	utilisateur = new Utilisateur(
+	           			result.getLong("Utilisateur.id"),
+	           			result.getString("Utilisateur.email"),
+	           			null,
+	           			result.getString("Utilisateur.nom"),
+	           			null,
+	           			null,
+	           			null,
+	           			null,
+	           			null
+	           			);
+	           	questionnaire = new Questionnaire(
+	           			_questionnaire_id,
+	           			result.getString("sujet"),
+	           			result.getBoolean("status")
+	           		);
+	           	
+	           	parc = new Parcours(
+	           							result.getLong("id"),
+	                                       utilisateur,
+	                                       questionnaire, 
+	                                       result.getInt("score"),
+	                                       result.getTime("duree")
+	                                   );
+	           	ParcoursArray.add(parc);
+	            }
+	          
+			    } catch (SQLException e) {
+			            e.printStackTrace();
+			    }
+		 
+		 return ParcoursArray;
+	}
+
+	public int countParcoursDoneByUser(int _utilisateur_id) {
+		int nb = 0;
+		try {
+	        ResultSet result = this.connect
+	                               .createStatement(
+	                                        	ResultSet.TYPE_SCROLL_INSENSITIVE, 
+	                                            ResultSet.CONCUR_UPDATABLE
+	                                         ).executeQuery(
+	                                        		 "SELECT count(*) AS nb FROM Parcours, Questionnaire, Utilisateur WHERE Parcours.questionnaire = Questionnaire.id AND Questionnaire.status = 1 AND Utilisateur.id = Parcours.utilisateur AND utilisateur = " + _utilisateur_id
+	                                         );
+	        if(result.first()) {
+	        	nb = result.getInt("nb") +1;
+	        }
+		    } catch (SQLException e) {
+		            e.printStackTrace();
+		    }
+		return nb;
+	}
+	
+	
+	public ArrayList findSpecifiqueIntervalleParcoursDone(int _utilisateur_id, int _limite_basse){
+		
+		 ArrayList ParcoursArray = new ArrayList();
+		 Parcours parc = new Parcours();
+		 Utilisateur utilisateur = new Utilisateur();
+		 
+		 Questionnaire questionnaire = new Questionnaire();
+		 
+		 try {
+	            ResultSet result = this.connect
+	                                   .createStatement(
+	                                            	ResultSet.TYPE_SCROLL_INSENSITIVE, 
+	                                                ResultSet.CONCUR_UPDATABLE
+	                                             ).executeQuery(
+	                                                "SELECT DISTINCT * FROM Parcours, Questionnaire, Utilisateur WHERE Parcours.questionnaire = Questionnaire.id AND Questionnaire.status = 1 AND Utilisateur.id = Parcours.utilisateur AND utilisateur = " + _utilisateur_id +" LIMIT 10 OFFSET "+_limite_basse
+	                                             );
+	            while(result.next()){
+	            	utilisateur = new Utilisateur(
+	            			result.getLong("Utilisateur.id"),
+	            			null,
+	            			null,
+	            			null,
+	            			null,
+	            			null,
+	            			null,
+	            			null,
+	            			null
+	      
+	            			);
+	            	
+	            	questionnaire = new Questionnaire(
+	            			result.getInt("Questionnaire.id"),
+	            			result.getString("sujet"),
+	            			result.getBoolean("status")
+	            		);
+	            	
+	            	parc = new Parcours(
+	            							result.getLong("id"),
+	            							utilisateur, 
+	                                        questionnaire,
+	                                        result.getInt("score"),
+	                                        result.getTime("duree")
+	                                    );
+	            	ParcoursArray.add(parc);
+	             }
+	           
+			    } catch (SQLException e) {
+			            e.printStackTrace();
+			    }
+		 
+		 return ParcoursArray;
+	}
+	
+	
+
+
+	public int countParcoursNotDoneByUser(int _utilisateur_id) {
+		int nb = 0;
+		try {
+	        ResultSet result = this.connect
+	                               .createStatement(
+	                                        	ResultSet.TYPE_SCROLL_INSENSITIVE, 
+	                                            ResultSet.CONCUR_UPDATABLE
+	                                         ).executeQuery(
+	                                        		 "SELECT count(*) AS nb FROM Questionnaire T1 LEFT OUTER JOIN Parcours T2 ON T1.id= T2.questionnaire AND T2.Utilisateur = "+_utilisateur_id+"  WHERE T2.questionnaire IS NULL AND T1.status = 1"
+	                                         );
+	        if(result.first()) {
+	        	nb = result.getInt("nb") +1;
+	        }
+		    } catch (SQLException e) {
+		            e.printStackTrace();
+		    }
+		return nb;
+	}
+	
+	public ArrayList findSpecifiqueIntervalleParcoursNotDone(int _user_id, int _limite_basse) {
+		
+		ArrayList QuestionnaireArray = new ArrayList();
+		Questionnaire questionnaire = new Questionnaire();
+		
+		try {
+
+				
+	            ResultSet result = this.connect
+	                                   .createStatement(
+	                                            	ResultSet.TYPE_SCROLL_INSENSITIVE, 
+	                                                ResultSet.CONCUR_UPDATABLE
+	                                             ).executeQuery(
+	                                                "SELECT distinct * FROM Questionnaire T1 LEFT OUTER JOIN Parcours T2 ON T1.id= T2.questionnaire AND T2.Utilisateur = "+_user_id+"  WHERE T2.questionnaire IS NULL AND T1.status = 1 LIMIT 10 OFFSET "+_limite_basse
+	                                             );
+	            while(result.next()){
+	            	
+	            	questionnaire = new Questionnaire(
+	            			result.getInt("T1.id"),
+	            			result.getString("T1.sujet"),
+	            			result.getBoolean("status")
+	            		);
+					
+	        
+	            	QuestionnaireArray.add(questionnaire);	
+					
+	            }
+	        
+		    } catch (SQLException e) {
+		            e.printStackTrace();
+		    }
+		   return QuestionnaireArray;
+
+	}
+
 
 	public  Parcours update(Parcours _obj){
 		return null;
