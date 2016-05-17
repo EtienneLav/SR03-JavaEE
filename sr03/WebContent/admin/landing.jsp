@@ -123,7 +123,7 @@
 							</div>
 						    <div class="radio">
 							  <label>
-							    <input type="radio" name="type" value="admin" > Stagiaire
+							    <input type="radio" name="type" value="stagiaire" > Stagiaire
 							  </label>
 							</div>
 							<button type="submit" class="btn btn-primary">Ajouter</button>
