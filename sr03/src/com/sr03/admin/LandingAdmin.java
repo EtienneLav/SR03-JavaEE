@@ -1,7 +1,7 @@
 package com.sr03.admin;
 
 import com.sr03.DAO.DAOFactory;
-import com.sr03.admin.UtilisateursGestion;
+import com.sr03.manager.UtilisateursGestion;
 import com.sr03.beans.*;
 import com.sr03.manager.QuestionnaireManager;
 

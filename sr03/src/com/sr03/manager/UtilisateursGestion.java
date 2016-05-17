@@ -1,4 +1,4 @@
-package com.sr03.admin;
+package com.sr03.manager;
 
 import com.sr03.DAO.DAOFactory;
 import com.sr03.DAO.UtilisateurDAO;

@@ -6,7 +6,7 @@ import com.sr03.DAO.ParcoursDAO;
 import com.sr03.DAO.QuestionDAO;
 import com.sr03.DAO.ReponseDAO;
 import com.sr03.DAO.Reponse_parcoursDAO;
-import com.sr03.admin.UtilisateursGestion;
+import com.sr03.manager.UtilisateursGestion;
 import com.sr03.beans.*;
 import java.io.IOException;
 import java.io.PrintWriter;
