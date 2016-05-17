@@ -120,6 +120,17 @@
     <url-pattern>/stagiaire/ajax</url-pattern>
   </servlet-mapping>
   
+   <servlet>
+    <servlet-name>AjaxRanking</servlet-name>
+    <servlet-class>com.sr03.stagiaire.AjaxRanking</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AjaxRanking</servlet-name>
+    <url-pattern>/stagiaire/ranking</url-pattern>
+  </servlet-mapping>
+  
+  
+  
   
   <filter>
     <filter-name>RestrictionFilterAdmin</filter-name>

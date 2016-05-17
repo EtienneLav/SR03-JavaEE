@@ -91,6 +91,8 @@
 	        <div class="col-lg-12">
 	        	<h3>Ranking</h3>					    	    
 			
+			<div id="content">
+			
 				<div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true">
 				  <div class="panel panel-default">
 				    <div class="panel-heading" role="tab" id="headingOne2">
@@ -128,11 +130,41 @@
 				    </div>
 				  </div>
 				</div>
+				
+			</div>
+    		<div id="page-selection" style="text-align: center;"></div>
 			</div>
 		</div>
 		<a href="/sr03/stagiaire/landing"><button type="button" class="btn btn-warning">Retour</button></a>
     </div>
 </section>
+
+<%int nb_page = (int) request.getAttribute("nombre_pages");%>
+<%int questionnaire_id = (int) request.getAttribute("questionnaire_id");%>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="//raw.github.com/botmonster/jquery-bootpag/master/lib/jquery.bootpag.min.js"></script>
+<script>
+        // init bootpag
+        $('#page-selection').bootpag({
+            total: <% out.print(nb_page); %>
+        }).on("page", function(event, /* page number here */ num){
+        	
+        	$.ajax({
+	            type:"GET",
+	            data : "numero_page="+num,
+	            url:"/sr03/stagiaire/ranking?parcours_number=<% out.print(questionnaire_id); %>",
+	            error:function(msg){
+	                ;
+	            },
+	            success:function(data){
+	            	 $('#content').empty();
+	            	 $("#content").html(data); // some ajax content loading...
+	            }
+	        });
+            
+        });
+    </script>
 
 
 <%@ include file="../WEB-INF/footer.jsp" %>

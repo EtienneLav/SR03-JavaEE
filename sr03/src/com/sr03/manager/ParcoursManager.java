@@ -57,6 +57,21 @@ public class ParcoursManager{
 		ArrayList RankingParcours = new ArrayList();
 		RankingParcours = this.parcoursDAO.findUtilisateursByQuestions(_id);
 	
+		
+		//Récupérer le nombre de parcours pour la pagination
+		int nombre_parcours ;
+		nombre_parcours = this.parcoursDAO.countParcoursByQuestionnaire(_id) - 1;
+		
+		//Adapter le nombre de page en fonction du nombre de parcours à afficher
+		int nombre_pages;
+		if(nombre_parcours <=10)
+			nombre_pages = 1;
+		else
+			nombre_pages = nombre_parcours/10 +1;
+		
+		System.out.println("nombre de page : "+nombre_pages);
+		request.setAttribute("nombre_parcours", nombre_parcours);
+		request.setAttribute("nombre_pages", nombre_pages);
 		request.setAttribute("ranking_utilisateur", RankingParcours);
 		
 		return request;

@@ -31,6 +31,8 @@ public class DetailsParcours extends HttpServlet {
 		Parcours parcours = DAOFactory.getParcoursDAO().find(Long.valueOf(number_parcours).longValue());
 		request.setAttribute("parcours", parcours);
 		
+		int questionnaire_id = (int) parcours.getQuestionnaire().getId();
+		request.setAttribute("questionnaire_id", questionnaire_id);
 		
 		//récupérer les utilisateurs ayant réalisés ce parcours + questions du questionnaire
 		ParcoursGestion parcGestion = new ParcoursGestion();

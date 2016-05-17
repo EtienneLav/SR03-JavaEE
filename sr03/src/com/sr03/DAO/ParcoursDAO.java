@@ -381,11 +381,85 @@ public ArrayList findUtilisateursByQuestions(int _questionnaire_id) {
 }
 
 
+public int countParcoursByQuestionnaire(int _questionnaire_id) {
+	int nb = 0;
+	try {
+        ResultSet result = this.connect
+                               .createStatement(
+                                        	ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                            ResultSet.CONCUR_UPDATABLE
+                                         ).executeQuery(
+                                            "SELECT count(*) AS nb FROM Utilisateur, Parcours WHERE Utilisateur.id = Parcours.utilisateur AND Parcours.questionnaire = "+ _questionnaire_id + " ORDER BY Parcours.score DESC"
+                                         );
+        if(result.first()) {
+        	nb = result.getInt("nb") +1;
+        }
+	    } catch (SQLException e) {
+	            e.printStackTrace();
+	    }
+	return nb;
+}
+
+
+public ArrayList findSpecifiqueIntervalle(int _questionnaire_id, int _limite_basse){
+	
+	 ArrayList ParcoursArray = new ArrayList();
+	 Parcours parc = new Parcours();
+	 Utilisateur utilisateur = new Utilisateur();
+	 
+	 Questionnaire questionnaire = new Questionnaire();
+	 
+	 try {
+           ResultSet result = this.connect
+                                  .createStatement(
+                                           	ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                               ResultSet.CONCUR_UPDATABLE
+                                            ).executeQuery(
+                                               "SELECT * FROM Parcours, Questionnaire, Utilisateur WHERE Questionnaire.status = 1 AND Utilisateur.id = Parcours.utilisateur AND Questionnaire.id = Parcours.questionnaire AND Questionnaire.id = " + _questionnaire_id + " ORDER BY Parcours.score DESC LIMIT 10 OFFSET "+_limite_basse
+                                            );
+           while(result.next()){
+           	
+           	utilisateur = new Utilisateur(
+           			result.getLong("Utilisateur.id"),
+           			result.getString("Utilisateur.email"),
+           			null,
+           			result.getString("Utilisateur.nom"),
+           			null,
+           			null,
+           			null,
+           			null,
+           			null
+           			);
+           	questionnaire = new Questionnaire(
+           			_questionnaire_id,
+           			result.getString("sujet"),
+           			result.getBoolean("status")
+           		);
+           	
+           	parc = new Parcours(
+           							result.getLong("id"),
+                                       utilisateur,
+                                       questionnaire, 
+                                       result.getInt("score"),
+                                       result.getTime("duree")
+                                   );
+           	ParcoursArray.add(parc);
+            }
+          
+		    } catch (SQLException e) {
+		            e.printStackTrace();
+		    }
+	 
+	 return ParcoursArray;
+}
+
 	public  Parcours update(Parcours _obj){
 		return null;
 	}
 	
 	public void delete(Parcours _obj){}
 }
+
+
 
 

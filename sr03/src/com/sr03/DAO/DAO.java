@@ -2,6 +2,7 @@ package com.sr03.DAO;
 
 import java.sql.Connection;
 import com.sr03.ConnectionMySQL;
+import com.sr03.beans.Parcours;
 
 public abstract class DAO<T> {
 
@@ -32,4 +33,6 @@ public abstract class DAO<T> {
 	 * @param obj
 	 */
 	public abstract void delete(T obj);
+
+
 }
