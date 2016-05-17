@@ -103,7 +103,7 @@ public class ParcoursDAO extends DAO<Parcours> {
 	                                            	ResultSet.TYPE_SCROLL_INSENSITIVE, 
 	                                                ResultSet.CONCUR_UPDATABLE
 	                                             ).executeQuery(
-	                                                "SELECT DISTINCT * FROM Parcours, Questionnaire, Utilisateur WHERE Parcours.questionnaire = Questionnaire.id AND Utilisateur.id = Parcours.utilisateur AND utilisateur = " + _utilisateur_id
+	                                                "SELECT DISTINCT * FROM Parcours, Questionnaire, Utilisateur WHERE Parcours.questionnaire = Questionnaire.id AND Questionnaire.status = 1 AND Utilisateur.id = Parcours.utilisateur AND utilisateur = " + _utilisateur_id
 	                                             );
 	            while(result.next()){
 	            	utilisateur = new Utilisateur(
@@ -300,7 +300,7 @@ public ArrayList findQuestionnairesLibre(int _user_id) {
                                             	ResultSet.TYPE_SCROLL_INSENSITIVE, 
                                                 ResultSet.CONCUR_UPDATABLE
                                              ).executeQuery(
-                                                "SELECT distinct * FROM Questionnaire T1 LEFT OUTER JOIN Parcours T2 ON T1.id= T2.questionnaire AND T2.Utilisateur = "+_user_id+"  WHERE T2.questionnaire IS NULL"
+                                                "SELECT distinct * FROM Questionnaire T1 LEFT OUTER JOIN Parcours T2 ON T1.id= T2.questionnaire AND T2.Utilisateur = "+_user_id+"  WHERE T2.questionnaire IS NULL AND T1.status = 1"
                                              );
             while(result.next()){
             	
