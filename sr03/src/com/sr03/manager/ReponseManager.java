@@ -29,7 +29,7 @@ public class ReponseManager{
 	
 	public HttpServletRequest getReponse(HttpServletRequest request) {
 		Reponse reponse = this.reponseDAO.find(Long.valueOf(request.getParameter("id")).longValue());
-		request.setAttribute("id", reponse);
+		request.setAttribute("reponse", reponse);
 		return request;
 	}
 	
@@ -119,4 +119,25 @@ public class ReponseManager{
 		return request;
 	}
 	
+	public HttpServletRequest modifyReponse(HttpServletRequest request) {
+		int modifiedReponse = 0;
+		
+        if (request.getParameter("modifierIntitule") != null && request.getParameter("id") != null) {
+        	Reponse rep = this.reponseDAO.find(Long.valueOf(request.getParameter("id")).longValue());
+        	rep.setIntitule(request.getParameter("modifierIntitule").toString());
+        	if (request.getParameter("correct").toString().equals("1")) {
+            	rep.setCorrect(true);
+        	} else {
+        		rep.setCorrect(false);
+        	}
+        	if (this.reponseDAO.update(rep) == null) {
+        		modifiedReponse = -1;
+        	} else {
+        		modifiedReponse = 1;
+        	}
+        }
+        
+		request.setAttribute("modifiedReponse", modifiedReponse);
+		return request;
+	}
 }

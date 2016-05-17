@@ -58,6 +58,14 @@
     <url-pattern>/admin/gestionQuestion</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>GestionReponse</servlet-name>
+    <servlet-class>com.sr03.admin.GestionReponse</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GestionReponse</servlet-name>
+    <url-pattern>/admin/gestionReponse</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>LandingStagiaire</servlet-name>
     <servlet-class>com.sr03.stagiaire.LandingStagiaire</servlet-class>
   </servlet>
