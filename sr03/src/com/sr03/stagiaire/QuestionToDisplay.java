@@ -123,6 +123,7 @@ public class QuestionToDisplay extends HttpServlet {
 				boolean est_derniere_question;
 				if( question.size()  <= (question_courante)){
 					 est_derniere_question = true;
+					
 					 
 				}
 				else {
@@ -137,6 +138,7 @@ public class QuestionToDisplay extends HttpServlet {
 					
 				}
 
+		request.setAttribute("aucune_question", false);
 		
 		//Variables de session pour la question courrante
 		session.setAttribute("numero_question", question_courante);
