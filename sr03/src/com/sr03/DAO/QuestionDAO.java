@@ -111,14 +111,16 @@ public class QuestionDAO extends DAO<Question> {
 		        		reponsesDAO.delete((Reponse)reponses.get(i));
 		        	}
 	        	}
-
+	        	        	
+				int status = 0;
                 this    .connect
                     	.createStatement(
                              ResultSet.TYPE_SCROLL_INSENSITIVE, 
                              ResultSet.CONCUR_UPDATABLE
                         ).executeUpdate(
-                             "DELETE FROM Question WHERE id = " + obj.getId()
-                        );	
+                        	"UPDATE Question SET status = '0'"+
+                                    	" WHERE id = " + obj.getId()                        		
+                        );
 	    } catch (SQLException e) {
 	            e.printStackTrace();
 	    }

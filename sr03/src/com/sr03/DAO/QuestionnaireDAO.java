@@ -105,14 +105,15 @@ public class QuestionnaireDAO extends DAO<Questionnaire> {
 		        		questionDAO.delete((Question)questions.get(i));
 		        	}
 	        	}
-
+				int status = 0;
                 this    .connect
                     	.createStatement(
                              ResultSet.TYPE_SCROLL_INSENSITIVE, 
                              ResultSet.CONCUR_UPDATABLE
                         ).executeUpdate(
-                             "DELETE FROM Questionnaire WHERE id = " + obj.getId()
-                        );	
+                        	"UPDATE Questionnaire SET status = '0'"+
+                                    	" WHERE id = " + obj.getId()                        		
+                        );
 	    } catch (SQLException e) {
 	            e.printStackTrace();
 	    }

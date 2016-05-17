@@ -136,13 +136,14 @@ public class ReponseDAO extends DAO<Reponse> {
 
 	public void delete(Reponse obj) {
 		try {
-			
+				int status = 0;
                 this    .connect
                     	.createStatement(
                              ResultSet.TYPE_SCROLL_INSENSITIVE, 
                              ResultSet.CONCUR_UPDATABLE
                         ).executeUpdate(
-                             "DELETE FROM Reponse WHERE id = " + obj.getId()
+                        	"UPDATE Reponse SET status = '0'"+
+                                    	" WHERE id = " + obj.getId()                        		
                         );
 			
 	    } catch (SQLException e) {
