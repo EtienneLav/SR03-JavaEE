@@ -74,7 +74,7 @@
 						    <td><% out.print(stagiaire.getDateInscription()); %></td>
 						    <td><% out.print(stagiaire.getStatus()); %></td>
 						    <td><% out.print(stagiaire.getType()); %></td>
-						    <td><a href="#">Résultats</a></td> 
+						    <td><a href="/sr03/admin/resultat?stagiaire_id=<% out.print(stagiaire.getId());%>">Résultats</a></td> 
 						   	<td><a href="/sr03/admin/landing?delete=<% out.print(stagiaire.getId()); %>">Supprimer</a></td>
 						  </tr>
 						  <% } %>
@@ -104,8 +104,6 @@
 						    <th>status</th>
 						    <th>type</th>
 							<th></th>
-							<th></th>
-							<th></th>
 						</tr>
 					  		 <% 
 					     ArrayList admins = (ArrayList)request.getAttribute("admins");
@@ -122,8 +120,6 @@
 						    <td><% out.print(admin.getDateInscription()); %></td>
 						    <td><% out.print(admin.getStatus()); %></td>
 						    <td><% out.print(admin.getType()); %></td>
-						    <td><a href="#">Résultats</a></td> 
-						    <td><a href="#">Modifier</a></td> 
 						   	<td><a href="/sr03/admin/landing?delete=<% out.print(admin.getId()); %>">Supprimer</a></td>
 						  </tr>
 						  <% } %>

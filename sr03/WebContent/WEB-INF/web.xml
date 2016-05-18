@@ -65,6 +65,26 @@
     <servlet-name>GestionReponse</servlet-name>
     <url-pattern>/admin/gestionReponse</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>GestionResultat</servlet-name>
+    <servlet-class>com.sr03.admin.GestionResultat</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GestionResultat</servlet-name>
+    <url-pattern>/admin/resultat</url-pattern>
+  </servlet-mapping>
+
+ <servlet>
+    <servlet-name>AjaxParcoursDoneAdmin</servlet-name>
+    <servlet-class>com.sr03.admin.AjaxParcoursDoneAdmin</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AjaxParcoursDoneAdmin</servlet-name>
+    <url-pattern>/admin/parcoursDone</url-pattern>
+  </servlet-mapping>
+  
+  
   <servlet>
     <servlet-name>LandingStagiaire</servlet-name>
     <servlet-class>com.sr03.stagiaire.LandingStagiaire</servlet-class>
