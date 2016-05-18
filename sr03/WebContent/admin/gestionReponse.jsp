@@ -74,6 +74,8 @@
 					<div class="col-lg-6 alert alert-success" role="alert">Réponse modifiée</div>
 				<%} else {} %> 				
         </div>  
+        
+        <a href="/sr03/admin/landing"><button type="button" class="btn btn-warning">Retour</button></a>
     </div>
 </section>
 
