@@ -143,7 +143,7 @@
 				    </div>
 				    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 				      <div class="panel-body">
-						<form action="/sr03/admin/landing" method="get">
+						<form action="/sr03/admin/landing" method="get" onsubmit="return verifForm(this)">
 						    <div class="form-group">
 						        <label for="mail">Addresse mail :</label>
 						        <input type="email" id="mail" name="mail" class="form-control"/>
@@ -268,6 +268,22 @@
 
     </div>
 </section>
+<script>
+function verifForm(f)
+{
+   var mot_de_passe = f.mdp.value;
+   var mail = f.mail.value;
+   var nom = f.nom.value;
+   
+   if(mot_de_passe.length >= 6 && mail.match(/[a-z0-9_\-\.]+@[a-z0-9_\-\.]+\.[a-z]+/i) && nom.length > 0)
 
+	   return true;
+   else
+   {
+      alert("Vérfier les champs du formulaire : le mdp doit faire 6 caractères minimum. De plus les champs nom et mail (bien formé) sont obligatoires !");
+      return false;
+   }
+}
+</script>
 
 <%@ include file="../WEB-INF/footer.jsp" %>

@@ -23,7 +23,10 @@ import com.sr03.beans.Question;
 import com.sr03.beans.Reponse;
 
 
+
 public class ParcoursManager{
+	
+	final int NOMBRE_ELEMENTS_PAR_PAGE = 10;
 	
 	private ParcoursDAO parcoursDAO;
 	private QuestionDAO questionDAO;
@@ -44,40 +47,40 @@ public class ParcoursManager{
 		ParcoursArray = this.parcoursDAO.findByUtilisateur(_id);
 		
 		//Récupérer le nombre de parcours déjà effectués pour la pagination
-		int nombre_parcours_effectues ;
-		nombre_parcours_effectues = this.parcoursDAO.countParcoursDoneByUser(_id) - 1;
-				
-		//Adapter le nombre de page en fonction du nombre de parcours à afficher
-		int nombre_pages_parcours_effectues;
-		if(nombre_parcours_effectues <=10)
-			nombre_pages_parcours_effectues = 1;
-		else
-			nombre_pages_parcours_effectues = nombre_parcours_effectues/10 +1;
-				
-		System.out.println("nombre de page parcours effectues : "+nombre_pages_parcours_effectues);
-		request.setAttribute("nombre_parcours_effectues", nombre_parcours_effectues);
-		request.setAttribute("nombre_pages_parcours_effectues", nombre_pages_parcours_effectues);
+			int nombre_parcours_effectues ;
+			nombre_parcours_effectues = this.parcoursDAO.countParcoursDoneByUser(_id) - 1;
+					
+			//Adapter le nombre de page en fonction du nombre de parcours à afficher
+			int nombre_pages_parcours_effectues;
+			if(nombre_parcours_effectues % NOMBRE_ELEMENTS_PAR_PAGE == 0)
+				nombre_pages_parcours_effectues = nombre_parcours_effectues/NOMBRE_ELEMENTS_PAR_PAGE;
+			else
+				nombre_pages_parcours_effectues = nombre_parcours_effectues/NOMBRE_ELEMENTS_PAR_PAGE +1;
+					
+			System.out.println("nombre de page parcours effectues : "+nombre_pages_parcours_effectues);
+			request.setAttribute("nombre_parcours_effectues", nombre_parcours_effectues);
+			request.setAttribute("nombre_pages_parcours_effectues", nombre_pages_parcours_effectues);
 		
 		
 
 		//récupérer les parcours libres (non effectués)
-		ArrayList QuestionnaireArray = new ArrayList();
-		QuestionnaireArray = this.parcoursDAO.findQuestionnairesLibre(_id);
-		
-		//Récupérer le nombre de parcours déjà effectués pour la pagination
-		int nombre_parcours_non_effectues ;
-		nombre_parcours_non_effectues = this.parcoursDAO.countParcoursNotDoneByUser(_id) - 1;
-						
-		//Adapter le nombre de page en fonction du nombre de parcours à afficher
-		int nombre_pages_parcours_non_effectues;
-		if(nombre_parcours_non_effectues <=10)
-			nombre_pages_parcours_non_effectues = 1;
-		else
-			nombre_pages_parcours_non_effectues = nombre_parcours_effectues/10 +1;
-						
-		System.out.println("nombre de page parcours non effectues : "+nombre_pages_parcours_non_effectues);
-		request.setAttribute("nombre_parcours_non_effectues", nombre_parcours_non_effectues);
-		request.setAttribute("nombre_pages_parcours_non_effectues", nombre_pages_parcours_non_effectues);
+			ArrayList QuestionnaireArray = new ArrayList();
+			QuestionnaireArray = this.parcoursDAO.findQuestionnairesLibre(_id);
+			
+			//Récupérer le nombre de parcours déjà effectués pour la pagination
+			int nombre_parcours_non_effectues ;
+			nombre_parcours_non_effectues = this.parcoursDAO.countParcoursNotDoneByUser(_id) - 1;
+							
+			//Adapter le nombre de page en fonction du nombre de parcours à afficher
+			int nombre_pages_parcours_non_effectues;
+			if(nombre_parcours_non_effectues % NOMBRE_ELEMENTS_PAR_PAGE == 0)
+				nombre_pages_parcours_non_effectues = nombre_parcours_non_effectues / NOMBRE_ELEMENTS_PAR_PAGE;
+			else
+				nombre_pages_parcours_non_effectues = nombre_parcours_effectues/NOMBRE_ELEMENTS_PAR_PAGE +1;
+							
+			System.out.println("nombre de page parcours non effectues : "+nombre_pages_parcours_non_effectues);
+			request.setAttribute("nombre_parcours_non_effectues", nombre_parcours_non_effectues);
+			request.setAttribute("nombre_pages_parcours_non_effectues", nombre_pages_parcours_non_effectues);
 				
 				
 
@@ -100,10 +103,10 @@ public class ParcoursManager{
 		
 		//Adapter le nombre de page en fonction du nombre de parcours à afficher
 		int nombre_pages;
-		if(nombre_parcours <=10)
-			nombre_pages = 1;
+		if(nombre_parcours % NOMBRE_ELEMENTS_PAR_PAGE == 0)
+			nombre_pages = nombre_parcours /NOMBRE_ELEMENTS_PAR_PAGE;
 		else
-			nombre_pages = nombre_parcours/10 +1;
+			nombre_pages = nombre_parcours/NOMBRE_ELEMENTS_PAR_PAGE +1;
 		
 		System.out.println("nombre de page : "+nombre_pages);
 		request.setAttribute("nombre_parcours", nombre_parcours);
