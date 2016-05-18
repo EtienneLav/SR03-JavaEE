@@ -43,10 +43,10 @@ public class ParcoursManager{
 	public HttpServletRequest getParcours(HttpServletRequest request, int _id) {
 		
 		//récupérer les parcours déjà effectués
-		ArrayList ParcoursArray = new ArrayList();
-		ParcoursArray = this.parcoursDAO.findByUtilisateur(_id);
+			ArrayList ParcoursArray = new ArrayList();
+			ParcoursArray = this.parcoursDAO.findByUtilisateur(_id);
 		
-		//Récupérer le nombre de parcours déjà effectués pour la pagination
+			//Récupérer le nombre de parcours déjà effectués pour la pagination
 			int nombre_parcours_effectues ;
 			nombre_parcours_effectues = this.parcoursDAO.countParcoursDoneByUser(_id) - 1;
 					
