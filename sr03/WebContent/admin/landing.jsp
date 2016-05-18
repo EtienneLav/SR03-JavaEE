@@ -58,7 +58,6 @@
 						    <th>type</th>
 							<th></th>
 							<th></th>
-							<th></th>
 						</tr>
 					  		 <% 
 					     ArrayList stagiaires = (ArrayList)request.getAttribute("stagiaires");
@@ -76,7 +75,6 @@
 						    <td><% out.print(stagiaire.getStatus()); %></td>
 						    <td><% out.print(stagiaire.getType()); %></td>
 						    <td><a href="#">Résultats</a></td> 
-						    <td><a href="#">Modifier</a></td> 
 						   	<td><a href="/sr03/admin/landing?delete=<% out.print(stagiaire.getId()); %>">Supprimer</a></td>
 						  </tr>
 						  <% } %>
