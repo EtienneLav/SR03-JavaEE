@@ -15,7 +15,8 @@
 						<li>Le questionnaire se présente la forme d'un QCM, une réponse est correcte pour chaque question proposée.</li>
 						<li>Une bonne réponse rapport 1 point, une mauvaise 0.</li>
 						<li>Une fois que cliquez sur le bouton "Démarrer", le chronomètre est lancé.</li>
-						<li>Celui-ci ainsi que le score seront sauvegardé uniquement si vous arrivez au bout du questionnaire (cliquer sur valider à la dernière question).</li>
+						<li>Celui-ci ainsi que le score seront sauvegardé uniquement si vous arrivez au bout du questionnaire (cliquer sur valider lorsque cela vous sera demandé).</li>
+						<li>Vous ne pouvez faire un même questionnaire qu'une fois par session.</li>
 					</ul>
 					<br>
 					<h5>Bonne chance ! </h5>
