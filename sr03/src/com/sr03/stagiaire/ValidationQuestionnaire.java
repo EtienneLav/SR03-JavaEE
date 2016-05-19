@@ -91,7 +91,16 @@ public class ValidationQuestionnaire extends HttpServlet {
  			created_reponse_parcours = reponse_parcoursDAO.create(current_reponse);
  			System.out.println("id du reponse_parcours créé : "+ created_reponse_parcours.getId());
  			}
-
+		
+		// récupération du nombre de questions pour le questionnaire
+		QuestionDAO questionDAO;
+		questionDAO = (QuestionDAO) DAOFactory.getQuestionDAO();
+		
+		int questionnaire_id_int = (int) Long.valueOf(questionnaire_id).longValue();
+		int nombre_points_max = questionDAO.countQuestionFromQuestionnaire(questionnaire_id_int);
+		
+		
+		request.setAttribute("points_max", nombre_points_max - 1);
 		request.setAttribute("score", score_questionnaire);
 		request.setAttribute("questionnaire", questionnaire);
 		

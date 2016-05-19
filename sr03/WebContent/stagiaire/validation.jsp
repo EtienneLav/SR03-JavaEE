@@ -7,7 +7,7 @@
 				<div class="well">
 					<h4>Ce questionnaire portait sur : ${ questionnaire.sujet }</h4>
 					<br><br>
-					Voici votre score : ${ score } <br>			
+					Voici votre score : ${ score } / ${ points_max }	 <br>			
 					<br>
 					<a href="/sr03/stagiaire/landing"><button type="button" class="btn btn-warning">Page d'accueil</button></a>
 				</div>
