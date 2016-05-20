@@ -25,34 +25,40 @@ public class AjaxParcoursDoneAdmin extends HttpServlet {
 		HttpSession session = request.getSession();
 		int user_id = (int) (long) session.getAttribute("utilisateur_ID");
 		
-		//Récuperer deux paramètres GET : numéro page & id du questionnaire
-		String numero_page_string = (String) request.getParameter("numero_page_done");
-		String numero_stagiaire_string = (String) request.getParameter("numero_stagiaire");
-				
-		//conversion en int
-		int numero_page = (int) Long.valueOf(numero_page_string).longValue();
-		int numero_stagiaire = (int) Long.valueOf(numero_stagiaire_string).longValue();
+		if("XMLHttpRequest".equals(
+	               request.getHeader("X-Requested-With")) == true ) {
 		
-		
-				
-				
-		//fixer limite haute et basse en fonction du numéro de la page reçu
-		int limite_haute = numero_page * 10;
-		int limite_basse = limite_haute - 10;
-				
-		System.out.println("page : "+numero_page);
-		System.out.println("haute : "+limite_haute);
-		System.out.println("basse : "+limite_basse);
-				
-		ArrayList parcours_effectues = new ArrayList();
-
-		ParcoursDAO parcoursDAO;
-		parcoursDAO = (ParcoursDAO) DAOFactory.getParcoursDAO();
-		
-		parcours_effectues = (ArrayList) parcoursDAO.findSpecifiqueIntervalleParcoursDone(numero_stagiaire, limite_basse);
-		
-		request.setAttribute("parcours_effectues", parcours_effectues);
-		request.setAttribute("numero_stagiaire", parcours_effectues);
-		this.getServletContext().getRequestDispatcher( "/admin/ajax_parcours_done.jsp" ).forward( request, response );
+			//Récuperer deux paramètres GET : numéro page & id du questionnaire
+			String numero_page_string = (String) request.getParameter("numero_page_done");
+			String numero_stagiaire_string = (String) request.getParameter("numero_stagiaire");
+					
+			//conversion en int
+			int numero_page = (int) Long.valueOf(numero_page_string).longValue();
+			int numero_stagiaire = (int) Long.valueOf(numero_stagiaire_string).longValue();
+			
+	
+			//fixer limite haute et basse en fonction du numéro de la page reçu
+			int limite_haute = numero_page * 10;
+			int limite_basse = limite_haute - 10;
+					
+			System.out.println("page : "+numero_page);
+			System.out.println("haute : "+limite_haute);
+			System.out.println("basse : "+limite_basse);
+					
+			ArrayList parcours_effectues = new ArrayList();
+	
+			ParcoursDAO parcoursDAO;
+			parcoursDAO = (ParcoursDAO) DAOFactory.getParcoursDAO();
+			
+			parcours_effectues = (ArrayList) parcoursDAO.findSpecifiqueIntervalleParcoursDone(numero_stagiaire, limite_basse);
+			
+			request.setAttribute("parcours_effectues", parcours_effectues);
+			request.setAttribute("numero_stagiaire", parcours_effectues);
+			this.getServletContext().getRequestDispatcher( "/admin/ajax_parcours_done.jsp" ).forward( request, response );
+			
+		}
+	
+		else
+			this.getServletContext().getRequestDispatcher( "/WEB-INF/erreur.jsp" ).forward( request, response );
 	}
 }

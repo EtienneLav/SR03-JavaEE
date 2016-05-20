@@ -23,31 +23,40 @@ public class AjaxParcoursDone extends HttpServlet {
 	public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
 		
 		HttpSession session = request.getSession();
+		
 		int user_id = (int) (long) session.getAttribute("utilisateur_ID");
 		
-		//Récuperer deux paramètres GET : numéro page & id du questionnaire
-		String numero_page_string = (String) request.getParameter("numero_page_done");
-				
-		//conversion en int
-		int numero_page = (int) Long.valueOf(numero_page_string).longValue();
-				
-				
-		//fixer limite haute et basse en fonction du numéro de la page reçu
-		int limite_haute = numero_page * 10;
-		int limite_basse = limite_haute - 10;
-				
-		System.out.println("page : "+numero_page);
-		System.out.println("haute : "+limite_haute);
-		System.out.println("basse : "+limite_basse);
-				
-		ArrayList parcours_effectues = new ArrayList();
-
-		ParcoursDAO parcoursDAO;
-		parcoursDAO = (ParcoursDAO) DAOFactory.getParcoursDAO();
 		
-		parcours_effectues = (ArrayList) parcoursDAO.findSpecifiqueIntervalleParcoursDone(user_id, limite_basse);
+		if("XMLHttpRequest".equals(
+	               request.getHeader("X-Requested-With")) == true ) {
+			//Récuperer deux paramètres GET : numéro page & id du questionnaire
+			String numero_page_string = (String) request.getParameter("numero_page_done");
+					
+			//conversion en int
+			int numero_page = (int) Long.valueOf(numero_page_string).longValue();
+					
+					
+			//fixer limite haute et basse en fonction du numéro de la page reçu
+			int limite_haute = numero_page * 10;
+			int limite_basse = limite_haute - 10;
+					
+			System.out.println("page : "+numero_page);
+			System.out.println("haute : "+limite_haute);
+			System.out.println("basse : "+limite_basse);
+					
+			ArrayList parcours_effectues = new ArrayList();
+	
+			ParcoursDAO parcoursDAO;
+			parcoursDAO = (ParcoursDAO) DAOFactory.getParcoursDAO();
+			
+			parcours_effectues = (ArrayList) parcoursDAO.findSpecifiqueIntervalleParcoursDone(user_id, limite_basse);
+			
+			request.setAttribute("parcours_effectues", parcours_effectues);
+			this.getServletContext().getRequestDispatcher( "/stagiaire/ajax_parcours_done.jsp" ).forward( request, response );
+	}
 		
-		request.setAttribute("parcours_effectues", parcours_effectues);
-		this.getServletContext().getRequestDispatcher( "/stagiaire/ajax_parcours_done.jsp" ).forward( request, response );
+		else
+			this.getServletContext().getRequestDispatcher( "/WEB-INF/erreur.jsp" ).forward( request, response );
+				
 	}
 }

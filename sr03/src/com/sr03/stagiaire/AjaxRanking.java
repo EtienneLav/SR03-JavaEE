@@ -25,33 +25,41 @@ public class AjaxRanking extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
-		//Récuperer deux paramètres GET : numéro page & id du questionnaire
-		String numero_parcours_string = (String) request.getParameter("parcours_number");
-		String numero_page_string = (String) request.getParameter("numero_page");
+		if("XMLHttpRequest".equals(
+	               request.getHeader("X-Requested-With")) == true ) {
 		
-		int numero_parcours = (int) Long.valueOf(numero_parcours_string).longValue();
-		int numero_page = (int) Long.valueOf(numero_page_string).longValue();
+			//Récuperer deux paramètres GET : numéro page & id du questionnaire
+			String numero_parcours_string = (String) request.getParameter("parcours_number");
+			String numero_page_string = (String) request.getParameter("numero_page");
+			
+			int numero_parcours = (int) Long.valueOf(numero_parcours_string).longValue();
+			int numero_page = (int) Long.valueOf(numero_page_string).longValue();
+			
+			
+			//fixer limite haute et basse en fonction du numéro de la page reçu
+			int limite_haute = numero_page * 10;
+			int limite_basse = limite_haute - 10;
+			
+			System.out.println("page : "+numero_page);
+			System.out.println("haute : "+limite_haute);
+			System.out.println("basse : "+limite_basse);
+			
+			ArrayList parcours = new ArrayList();
+	
+			ParcoursDAO parcoursDAO;
+			parcoursDAO = (ParcoursDAO) DAOFactory.getParcoursDAO();
+			
+			parcours = (ArrayList) parcoursDAO.findSpecifiqueIntervalle(numero_parcours, limite_basse);
+			
+			request.setAttribute("parcours", parcours);
+			request.setAttribute("page_actuelle", numero_page);
+			
+			this.getServletContext().getRequestDispatcher( "/stagiaire/ajax_ranking.jsp" ).forward( request, response );
+			
+		}
 		
-		
-		//fixer limite haute et basse en fonction du numéro de la page reçu
-		int limite_haute = numero_page * 10;
-		int limite_basse = limite_haute - 10;
-		
-		System.out.println("page : "+numero_page);
-		System.out.println("haute : "+limite_haute);
-		System.out.println("basse : "+limite_basse);
-		
-		ArrayList parcours = new ArrayList();
-
-		ParcoursDAO parcoursDAO;
-		parcoursDAO = (ParcoursDAO) DAOFactory.getParcoursDAO();
-		
-		parcours = (ArrayList) parcoursDAO.findSpecifiqueIntervalle(numero_parcours, limite_basse);
-		
-		request.setAttribute("parcours", parcours);
-		request.setAttribute("page_actuelle", numero_page);
-		
-		this.getServletContext().getRequestDispatcher( "/stagiaire/ajax_ranking.jsp" ).forward( request, response );
+		else
+			this.getServletContext().getRequestDispatcher( "/WEB-INF/erreur.jsp" ).forward( request, response );
 	}
 	
 }
