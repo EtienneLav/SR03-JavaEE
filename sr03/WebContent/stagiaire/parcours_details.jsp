@@ -143,7 +143,7 @@
 <%int questionnaire_id = (int) request.getAttribute("questionnaire_id");%>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-<script src="//raw.github.com/botmonster/jquery-bootpag/master/lib/jquery.bootpag.min.js"></script>
+<script src="//rawgit.com/botmonster/jquery-bootpag/master/lib/jquery.bootpag.min.js"></script>
 <script>
         // init bootpag
         $('#page-selection').bootpag({
