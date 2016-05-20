@@ -20,6 +20,7 @@
 					<br><br>
 					Voici votre score : ${ score } / ${ points_max }	 <br>			
 					<br>
+					<a href="/sr03/stagiaire/landing/parcoursdetails?parcours_number=${ parcours_id }"><button type="button" class="btn btn-info">Détails de votre parcours</button></a>
 					<%} %>
 					<a href="/sr03/stagiaire/landing"><button type="button" class="btn btn-warning">Page d'accueil</button></a>
 				</div>

@@ -122,7 +122,7 @@ public class ValidationQuestionnaire extends HttpServlet {
 			int questionnaire_id_int = (int) Long.valueOf(questionnaire_id).longValue();
 			int nombre_points_max = questionDAO.countQuestionFromQuestionnaire(questionnaire_id_int);
 			
-			
+			request.setAttribute("parcours_id", created_parcours.getId());
 			request.setAttribute("points_max", nombre_points_max - 1);
 			request.setAttribute("score", score_questionnaire);
 			
@@ -133,6 +133,7 @@ public class ValidationQuestionnaire extends HttpServlet {
 		else
 			deja_fait = true;
 			
+		
 		request.setAttribute("deja_fait", deja_fait);
 		request.setAttribute("questionnaire", questionnaire);
 		
