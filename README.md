@@ -32,16 +32,18 @@ Spécifications :
 
 Outils :
 
-- phpMyAdmin (mySql)
+- phpMyAdmin
 - Git 
 - Gitlab
 - Trello
+- Slack
+
+Modèle MVC :
+
+- Modèle : Beans + DAO
+- Controlleur : Servlets
+- Vue : template JSP
 
 BDD : 
-Utilisateur
-Questionnaire
-Question
-Reponse
-Parcours
-RéponseParcours
+Utilisateur, Questionnaire, Question, Reponse, Parcours, RéponseParcours
 
