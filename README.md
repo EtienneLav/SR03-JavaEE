@@ -26,7 +26,7 @@ Spécifications :
 - Tomcat
 - Bootstrap
 - Jquery
- Ajax
+- Ajax
 - JDBC (Mysql)
 - SMTP+SSL
 
@@ -37,6 +37,7 @@ Outils :
 - Gitlab
 - Trello
 - Slack
+- ShareLateX
 
 Modèle MVC :
 
