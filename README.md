@@ -26,6 +26,7 @@ Spécifications :
 - Tomcat
 - Bootstrap
 - Jquery
+- JS
 - Ajax
 - JDBC (Mysql)
 - SMTP+SSL
